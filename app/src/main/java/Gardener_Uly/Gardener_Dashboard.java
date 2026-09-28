@@ -24,7 +24,7 @@ public class Gardener_Dashboard extends AppCompatActivity {
     FirebaseAuth mAuth;
     FirebaseUser user;
     FirebaseFirestore db;
-    TextView tvGardenerName;
+    TextView tvGardenerName, tvGardenerPhone;
 
     DocumentSnapshot gardenerDoc;
 
@@ -44,6 +44,7 @@ public class Gardener_Dashboard extends AppCompatActivity {
         mAuth = FirebaseAuth.getInstance();
         user = mAuth.getCurrentUser();
         tvGardenerName = findViewById(R.id.tvGDashGardenersName);
+        tvGardenerPhone = findViewById(R.id.tvGDashGardenersPhone);
 
 
         db = FirebaseFirestore.getInstance();
@@ -56,6 +57,7 @@ public class Gardener_Dashboard extends AppCompatActivity {
                 }
 
                 tvGardenerName.setText(gardenerDoc.get("name").toString());
+                tvGardenerPhone.setText(gardenerDoc.get("phone").toString());
             }
         });
 
