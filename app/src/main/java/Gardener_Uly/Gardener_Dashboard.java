@@ -23,6 +23,7 @@ import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 
+import Gardener_Uly.MyProfile.Gardener_MyProfile;
 import Gardener_Uly.OpenJobs.Gardener_OpenJobs;
 
 public class Gardener_Dashboard extends AppCompatActivity {
@@ -57,7 +58,6 @@ Button btnViewJobs, btnMyJobs, btnMyWeek, btnMyProfile, btnSetAvailability;
         btnViewJobs.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(getApplicationContext(), "Opening View Jobs", Toast.LENGTH_SHORT).show();
                 Intent intent = new Intent(getApplicationContext(), Gardener_OpenJobs.class);
                 startActivity(intent);
             }
@@ -83,9 +83,8 @@ Button btnViewJobs, btnMyJobs, btnMyWeek, btnMyProfile, btnSetAvailability;
         btnMyProfile.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(getApplicationContext(), "Opening My Profile", Toast.LENGTH_SHORT).show();
-
-
+                Intent intent = new Intent(getApplicationContext(), Gardener_MyProfile.class);
+                startActivity(intent);
             }
         });
 
