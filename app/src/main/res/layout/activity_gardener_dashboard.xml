@@ -7,20 +7,70 @@
     android:layout_height="match_parent"
     tools:context="Gardener_Uly.Gardener_Dashboard"
     android:orientation="vertical"
-    android:gravity="center"
+    android:gravity="center_horizontal"
+    android:background="@color/background_green"
     >
 
     <TextView
-        android:id="@+id/tvGDashGardenersName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="placeholder"/>
+        android:text="Gardener's Dashboard"
+        android:textStyle="bold"
+        android:textSize="24sp"
+        android:textColor="@color/black"
+        android:layout_marginVertical="48sp"
+        />
 
-    <TextView
-        android:id="@+id/tvGDashGardenersPhone"
-        android:layout_width="wrap_content"
+    <Button
+        android:id="@+id/btnGDashViewJobs"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="placeholder"/>
+        android:text="Open Jobs"
+        android:textSize="16sp"
+        android:layout_marginHorizontal="24sp"
+        android:layout_marginBottom="16sp"
+        android:backgroundTint="@color/primary_green"
+        />
+    <Button
+        android:id="@+id/btnGDashMyJobs"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="My Jobs"
+        android:textSize="16sp"
+        android:layout_marginHorizontal="24sp"
+        android:layout_marginBottom="16sp"
+        android:backgroundTint="@color/primary_green"
+        />
+    <Button
+        android:id="@+id/btnGDashMyWeek"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Weekly Calendar"
+        android:textSize="16sp"
+        android:layout_marginHorizontal="24sp"
+        android:layout_marginBottom="16sp"
+        android:backgroundTint="@color/primary_green"
+        />
+    <Button
+        android:id="@+id/btnGDashMyProfile"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="My Profile"
+        android:textSize="16sp"
+        android:layout_marginHorizontal="24sp"
+        android:layout_marginBottom="16sp"
+        android:backgroundTint="@color/primary_green"
+        />
+    <Button
+        android:id="@+id/btnGDashSetAvailability"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Set My Availability"
+        android:textSize="16sp"
+        android:layout_marginHorizontal="24sp"
+        android:layout_marginBottom="16sp"
+        android:backgroundTint="@color/primary_green"
+        />
 
 
 
