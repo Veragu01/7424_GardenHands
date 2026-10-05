@@ -25,6 +25,7 @@ import com.google.firebase.firestore.FirebaseFirestore;
 
 import Gardener_Uly.MyProfile.Gardener_MyProfile;
 import Gardener_Uly.OpenJobs.Gardener_OpenJobs;
+import Gardener_Uly.WeeklyCalendar.Gardener_WeeklyCalendar;
 
 public class Gardener_Dashboard extends AppCompatActivity {
 
@@ -75,7 +76,8 @@ Button btnViewJobs, btnMyJobs, btnMyWeek, btnMyProfile, btnSetAvailability;
             @Override
             public void onClick(View v) {
                 Toast.makeText(getApplicationContext(), "Opening My Weekly Calendar", Toast.LENGTH_SHORT).show();
-
+                Intent intent = new Intent(getApplicationContext(), Gardener_WeeklyCalendar.class);
+                startActivity(intent);
 
             }
         });
