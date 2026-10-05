@@ -25,7 +25,7 @@ import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 
 import Admin_Greg.Admin_Dashboard;
-import Customer_Aidan.Customer_Dahsboard;
+import Customer_Aidan.Customer_Dashboard;
 import Gardener_Uly.Gardener_Dashboard;
 
 public class LoginActivity extends AppCompatActivity {
@@ -88,13 +88,17 @@ public class LoginActivity extends AppCompatActivity {
                                                 Log.d(TAG, "DocumentSnapshot data: " + document.getData());
 
                                                 if (document.get("user_group").equals("Gardeners")){ // opens gardeners dash on login success
-                                                    Toast.makeText(getApplicationContext(), "Opening Gardeners Dash", Toast.LENGTH_SHORT).show();
-                                                    Intent intent = new Intent(getApplicationContext(), Gardener_Dashboard.class);
-                                                    startActivity(intent);
-                                                    finish();
+                                                    if(document.get("authorised").equals("False")){
+                                                        Toast.makeText(LoginActivity.this, "Your account is waiting to be authorised by an admin", Toast.LENGTH_SHORT).show();
+                                                    }else {
+                                                        Toast.makeText(getApplicationContext(), "Opening Gardeners Dash", Toast.LENGTH_SHORT).show();
+                                                        Intent intent = new Intent(getApplicationContext(), Gardener_Dashboard.class);
+                                                        startActivity(intent);
+                                                        finish();
+                                                    }
                                                 } else if (document.get("user_group").equals("Customers")) { // opens customers dash on login success
                                                     Toast.makeText(getApplicationContext(), "Opening Customer Dash", Toast.LENGTH_SHORT).show();
-                                                    Intent intent = new Intent(getApplicationContext(), Customer_Dahsboard.class);
+                                                    Intent intent = new Intent(getApplicationContext(), Customer_Dashboard.class);
                                                     startActivity(intent);
                                                     finish();
                                                 } else if (document.get("user_group").equals("Administrators")) { // opens administrators dash on login success

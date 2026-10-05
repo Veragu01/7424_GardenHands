@@ -33,6 +33,30 @@
             android:name="Admin_Greg.Admin_Dashboard"
             android:exported="false"
             android:windowSoftInputMode="adjustResize" />
+        <activity
+            android:name="Admin_Greg.Admin_CreateNewUser"
+            android:exported="false"
+            android:windowSoftInputMode="adjustResize" />
+        <activity
+            android:name="Admin_Greg.Admin_ViewAllUsers"
+            android:exported="false"
+            android:windowSoftInputMode="adjustResize" />
+        <activity
+            android:name="Admin_Greg.Admin_VerifyNewJobs"
+            android:exported="false"
+            android:windowSoftInputMode="adjustResize" />
+        <activity
+            android:name="Admin_Greg.Admin_CloseFinishedJobs"
+            android:exported="false"
+            android:windowSoftInputMode="adjustResize" />
+        <activity
+            android:name="Admin_Greg.Admin_DeleteJobs"
+            android:exported="false"
+            android:windowSoftInputMode="adjustResize" />
+        <activity
+            android:name="Customer_Aidan.Customer_Dashboard"
+            android:exported="false"
+            android:windowSoftInputMode="adjustResize" />
     </application>
 
 </manifest>

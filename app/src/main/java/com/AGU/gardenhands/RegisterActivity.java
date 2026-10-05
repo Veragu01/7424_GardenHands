@@ -37,6 +37,7 @@ public class RegisterActivity extends AppCompatActivity {
     Button btnCreateNewAccount, btnCancelNewAccount;
 
     String user_group;
+    String authorised;
 
 
     @Override
@@ -66,6 +67,7 @@ public class RegisterActivity extends AppCompatActivity {
 
 
 
+
         // Changes selected account type to customer and unchecks gardener radio button
         rbCustomer.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -74,6 +76,7 @@ public class RegisterActivity extends AppCompatActivity {
                 rbCustomer.setChecked(true);
                 Toast.makeText(getApplicationContext(), "test 1", Toast.LENGTH_SHORT).show();
                 user_group = "Customers";
+                authorised = "True";
             }
         });
 
@@ -85,6 +88,7 @@ public class RegisterActivity extends AppCompatActivity {
                 rbCustomer.setChecked(false);
                 Toast.makeText(getApplicationContext(), "test 2", Toast.LENGTH_SHORT).show();
                 user_group = "Gardeners";
+                authorised = "False";
             }
         });
 
@@ -119,6 +123,7 @@ public class RegisterActivity extends AppCompatActivity {
                                     newUser.put("name", fullName);
                                     newUser.put("phone", phone);
                                     newUser.put("user_group", user_group);
+                                    newUser.put("authorised", authorised);
                                     db.collection("users").document(uID).set(newUser).addOnCompleteListener(new OnCompleteListener<Void>() {
                                         @Override
                                         public void onComplete(@NonNull Task<Void> task) {
