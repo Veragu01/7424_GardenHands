@@ -87,9 +87,9 @@ public class Gardener_MyProfile extends AppCompatActivity {
         btnUpdateDetails.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(getApplicationContext(), "Opening Update Details", Toast.LENGTH_SHORT).show();
-//                Intent intent = new Intent(getApplicationContext(), LoginActivity.class);
-//                startActivity(intent);
+                Intent intent = new Intent(getApplicationContext(), Gardeners_UpdateProfile.class);
+                startActivity(intent);
+                finish();
             }
         });
 
