@@ -212,10 +212,10 @@
         android:layout_height="wrap_content"
         android:text="Cancel"
         android:textSize="16sp"
-        android:textColor="@color/black"
+        android:textColor="@color/off_white"
         android:layout_marginHorizontal="16sp"
         android:layout_marginBottom="15sp"
-        android:backgroundTint="@color/light_grey"
+        android:backgroundTint="@color/red"
         />
 
 

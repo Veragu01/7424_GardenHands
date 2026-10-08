@@ -23,6 +23,7 @@ import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 
+import Gardener_Uly.MyAvailability.Gardener_SetAvailability;
 import Gardener_Uly.MyProfile.Gardener_MyProfile;
 import Gardener_Uly.OpenJobs.Gardener_OpenJobs;
 import Gardener_Uly.WeeklyCalendar.Gardener_WeeklyCalendar;
@@ -93,8 +94,8 @@ Button btnViewJobs, btnMyJobs, btnMyWeek, btnMyProfile, btnSetAvailability;
         btnSetAvailability.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(getApplicationContext(), "Opening Set Availability", Toast.LENGTH_SHORT).show();
-            }
+                Intent intent = new Intent(getApplicationContext(), Gardener_SetAvailability.class);
+                startActivity(intent);            }
         });
 
 

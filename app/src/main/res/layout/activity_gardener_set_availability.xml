@@ -11,6 +11,81 @@
     android:background="@color/background_green">
 
 
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Set My Availability"
+        android:textStyle="bold"
+        android:textSize="24sp"
+        android:textColor="@color/black"
+        android:layout_marginTop="42sp"
+        android:layout_marginBottom="16sp"
+        />
+
+    <DatePicker
+        android:id="@+id/GSA_DatePicker"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:datePickerMode="calendar"
+        android:text="@color/primary_green"
+        android:theme="@style/MyDatePicker"
+        />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:gravity="left"
+        >
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Select Timeslot:"
+            android:textStyle="bold"
+            android:textColor="@color/black"
+            android:textSize="18sp"/>
+
+        <Spinner
+            android:id="@+id/spnrGSA_Timeslot"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="16sp"
+            android:layout_marginVertical="10sp"
+
+            />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Select Availability:"
+            android:textStyle="bold"
+            android:textColor="@color/black"
+            android:textSize="18sp"/>
+        <Spinner
+            android:id="@+id/spnrGSA_Booking"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="16sp"
+            android:layout_marginVertical="10sp"
+            />
+    </LinearLayout>
+    <Space
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        />
+
+    <Button
+        android:id="@+id/btnGSA_UpdateTimeslot"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Update Timeslot"
+        android:backgroundTint="@color/primary_green"
+        android:textSize="16sp"
+        android:textColor="@color/off_white"
+        android:layout_marginHorizontal="16sp"
+        android:layout_marginBottom="16sp"
+        />
+
 
 
 </LinearLayout>
