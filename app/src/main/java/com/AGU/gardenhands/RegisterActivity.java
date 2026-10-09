@@ -107,13 +107,13 @@ public class RegisterActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 String password = txtPassword.getText().toString().trim();
-                String confrimPassword = txtConfirmPassword.getText().toString().trim();
+                String confirmPassword = txtConfirmPassword.getText().toString().trim();
                 String email = txtEmail.getText().toString().trim();
                 String fullName = txtFullName.getText().toString().trim();
                 String phone = txtPhone.getText().toString().trim();
 
                 if (!fieldsEmpty()){
-                    if (password.equals(confrimPassword)) {
+                    if (password.equals(confirmPassword)) {
                         mAuth.createUserWithEmailAndPassword(email, password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                             @Override
                             public void onComplete(@NonNull Task<AuthResult> task) {
@@ -121,6 +121,7 @@ public class RegisterActivity extends AppCompatActivity {
                                     String uID = mAuth.getCurrentUser().getUid();
                                     Map<String, Object> newUser = new HashMap<>();
                                     newUser.put("name", fullName);
+                                    newUser.put("email",email);
                                     newUser.put("phone", phone);
                                     newUser.put("user_group", user_group);
                                     newUser.put("authorised", authorised);
@@ -159,11 +160,11 @@ public class RegisterActivity extends AppCompatActivity {
     public boolean fieldsEmpty(){
         String fullName = txtFullName.getText().toString().trim();
         String password = txtPassword.getText().toString().trim();
-        String confrimPassword = txtConfirmPassword.getText().toString().trim();
+        String confirmPassword = txtConfirmPassword.getText().toString().trim();
         String email = txtEmail.getText().toString().trim();
         String phone = txtPhone.getText().toString().trim();
 
-        if (fullName.isEmpty() || password.isEmpty() || confrimPassword.isEmpty() || email.isEmpty() || phone.isEmpty() || user_group.isEmpty() ){
+        if (fullName.isEmpty() || password.isEmpty() || confirmPassword.isEmpty() || email.isEmpty() || phone.isEmpty() || user_group.isEmpty() ){
             return true;
         }
         return false;

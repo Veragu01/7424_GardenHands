@@ -1,6 +1,5 @@
-package Admin_Greg;
+package Admin_Greg.Users.CreateNewUser;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -15,7 +14,6 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
-import com.AGU.gardenhands.LoginActivity;
 import com.AGU.gardenhands.R;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -74,7 +72,7 @@ public class Admin_CreateNewUser extends AppCompatActivity {
                 rbCustomer.setChecked(true);
                 Toast.makeText(getApplicationContext(), "test 1", Toast.LENGTH_SHORT).show();
                 user_group = "Customers";
-                authorised = "True";
+                authorised = "true";
             }
         });
 
@@ -86,7 +84,7 @@ public class Admin_CreateNewUser extends AppCompatActivity {
                 rbCustomer.setChecked(false);
                 Toast.makeText(getApplicationContext(), "test 2", Toast.LENGTH_SHORT).show();
                 user_group = "Gardeners";
-                authorised = "True";
+                authorised = "true";
             }
         });
 
@@ -110,6 +108,7 @@ public class Admin_CreateNewUser extends AppCompatActivity {
                                     String uID = mAuth.getCurrentUser().getUid();
                                     Map<String, Object> newUser = new HashMap<>();
                                     newUser.put("name", fullName);
+                                    newUser.put("email",email);
                                     newUser.put("phone", phone);
                                     newUser.put("user_group", user_group);
                                     newUser.put("authorised", authorised);
@@ -118,9 +117,6 @@ public class Admin_CreateNewUser extends AppCompatActivity {
                                         public void onComplete(@NonNull Task<Void> task) {
                                             if (task.isSuccessful()){
                                                 Toast.makeText(getApplicationContext(), "Success: New profile created", Toast.LENGTH_SHORT).show();
-                                                Intent intent = new Intent(getApplicationContext(), LoginActivity.class);
-                                                startActivity(intent);
-                                                finish();
                                             }
                                         }
                                     });

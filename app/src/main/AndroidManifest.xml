@@ -34,27 +34,31 @@
             android:exported="false"
             android:windowSoftInputMode="adjustResize" />
         <activity
-            android:name="Admin_Greg.Admin_CreateNewUser"
+            android:name="Admin_Greg.Users.CreateNewUser.Admin_CreateNewUser"
             android:exported="false"
             android:windowSoftInputMode="adjustResize" />
         <activity
-            android:name="Admin_Greg.Admin_ViewAllUsers"
+            android:name="Admin_Greg.Users.ViewAllUsers.Admin_ViewAllUsers"
             android:exported="false"
             android:windowSoftInputMode="adjustResize" />
         <activity
-            android:name="Admin_Greg.Admin_VerifyNewJobs"
+            android:name="Admin_Greg.Jobs.Admin_VerifyNewJobs"
             android:exported="false"
             android:windowSoftInputMode="adjustResize" />
         <activity
-            android:name="Admin_Greg.Admin_CloseFinishedJobs"
+            android:name="Admin_Greg.Jobs.Admin_CloseFinishedJobs"
             android:exported="false"
             android:windowSoftInputMode="adjustResize" />
         <activity
-            android:name="Admin_Greg.Admin_DeleteJobs"
+            android:name="Admin_Greg.Jobs.Admin_DeleteJobs"
             android:exported="false"
             android:windowSoftInputMode="adjustResize" />
         <activity
             android:name="Customer_Aidan.Customer_Dashboard"
+            android:exported="false"
+            android:windowSoftInputMode="adjustResize" />
+        <activity
+            android:name="Admin_Greg.Users.ViewSelectUser.Admin_ViewSelectUser"
             android:exported="false"
             android:windowSoftInputMode="adjustResize" />
     </application>
