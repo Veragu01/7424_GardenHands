@@ -8,7 +8,7 @@
     tools:context=".RegisterActivity"
     android:orientation="vertical"
     android:paddingTop="45dp"
-    android:background="#B6D2AE"
+    android:background="@color/background_green"
     android:gravity="center_horizontal">
 
     <TextView
@@ -46,17 +46,17 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginHorizontal="5dp"
-                    android:buttonTint="#006E1B"
+                    android:buttonTint="@color/primary_green"
                     android:checked="true"
                     android:text="Customer"
-                    android:textColorLink="#006E1B" />
+                    android:textColorLink="@color/primary_green" />
 
                 <RadioButton
                     android:id="@+id/rdoCreateNewGardener"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginHorizontal="5dp"
-                    android:buttonTint="#006E1B"
+                    android:buttonTint="@color/primary_green"
                     android:text="Gardener" />
             </LinearLayout>
         </RadioGroup>
@@ -82,7 +82,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="3"
-            android:backgroundTint="#006E1B"
+            android:backgroundTint="@color/primary_green"
             android:hint="enter full name"
             android:textAlignment="textStart" />
     </LinearLayout>
@@ -106,7 +106,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="3"
-            android:backgroundTint="#006E1B"
+            android:backgroundTint="@color/primary_green"
             android:hint="enter new password"
             android:inputType="textPassword"
             android:textAlignment="textStart" />
@@ -131,7 +131,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="3"
-            android:backgroundTint="#006E1B"
+            android:backgroundTint="@color/primary_green"
             android:hint="confirm password"
             android:inputType="textPassword"
             android:textAlignment="textStart" />
@@ -156,7 +156,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="3"
-            android:backgroundTint="#006E1B"
+            android:backgroundTint="@color/primary_green"
             android:hint="enter email"
             android:textAlignment="textStart" />
     </LinearLayout>
@@ -180,7 +180,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="3"
-            android:backgroundTint="#006E1B"
+            android:backgroundTint="@color/primary_green"
             android:hint="enter phone number"
             android:inputType="number"
             android:textAlignment="textStart" />
@@ -196,7 +196,7 @@
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="10dp"
             android:layout_weight="1"
-            android:backgroundTint="#006E1B"
+            android:backgroundTint="@color/primary_green"
             android:text="Create new account" />
 
         <Button
@@ -205,7 +205,7 @@
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="10dp"
             android:layout_weight="1"
-            android:backgroundTint="#006E1B"
+            android:backgroundTint="@color/primary_green"
             android:text="Cancel" />
     </LinearLayout>
 
