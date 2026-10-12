@@ -245,7 +245,6 @@ public class Gardener_ProvideQuote extends AppCompatActivity {
         monthIndex = dpCalendarSpinner.getMonth();
         year = dpCalendarSpinner.getYear();
         date = dayOfMonth+"/"+(monthIndex+1)+"/"+year;
-        Toast.makeText(getApplicationContext(), date, Toast.LENGTH_LONG).show();
 
     }
 }
