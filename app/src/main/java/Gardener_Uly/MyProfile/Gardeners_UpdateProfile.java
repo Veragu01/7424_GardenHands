@@ -107,8 +107,6 @@ public class Gardeners_UpdateProfile extends AppCompatActivity {
                                         Toast.makeText(getApplicationContext(), "Success: Profile Updated", Toast.LENGTH_LONG).show();
 
                                         // returns to profile page
-                                        Intent intent = new Intent(getApplicationContext(), Gardener_MyProfile.class);
-                                        startActivity(intent);
                                         finish();                                    }
                                 }
                             });
@@ -121,8 +119,6 @@ public class Gardeners_UpdateProfile extends AppCompatActivity {
                         Toast.makeText(getApplicationContext(), "Success: Profile Updated", Toast.LENGTH_LONG).show();
 
                         // returns to profile page
-                        Intent intent = new Intent(getApplicationContext(), Gardener_MyProfile.class);
-                        startActivity(intent);
                         finish();
                     }
                 }
@@ -132,8 +128,6 @@ public class Gardeners_UpdateProfile extends AppCompatActivity {
         btnCancel.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(getApplicationContext(), Gardener_MyProfile.class);
-                startActivity(intent);
                 finish();
             }
         });

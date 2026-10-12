@@ -89,7 +89,6 @@ public class Gardener_MyProfile extends AppCompatActivity {
             public void onClick(View v) {
                 Intent intent = new Intent(getApplicationContext(), Gardeners_UpdateProfile.class);
                 startActivity(intent);
-                finish();
             }
         });
 
@@ -97,6 +96,7 @@ public class Gardener_MyProfile extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(getApplicationContext(), LoginActivity.class);
+                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                 startActivity(intent);
                 finish();
             }
