@@ -38,7 +38,6 @@ public class Gardener_OpenJobs extends AppCompatActivity {
     FirebaseAuth mAuth;
     FirebaseUser user;
     FirebaseFirestore db;
-    DocumentSnapshot gardenerDoc;
     RecyclerView rvOpenJobs;
     ProgressBar pbOpenJobs;
 
@@ -70,15 +69,9 @@ public class Gardener_OpenJobs extends AppCompatActivity {
             public void onComplete(@NonNull Task<QuerySnapshot> task) {
                 if (task.isSuccessful()){
                     for (QueryDocumentSnapshot document : task.getResult()) {
-                        Log.d("", document.getId() + " => " + document.getData());
-//                        gardenerDoc = document;
                         Jobs j = document.toObject(Jobs.class);
+                        j.setDocumentId(document.getId());
                         jobsArrayList.add(j);
-
-
-//                tvGardenerPhone.setText(gardenerDoc.get("phone").toString());
-
-
                     }
                     adapter.notifyDataSetChanged();
                     pbOpenJobs.setVisibility(View.GONE);

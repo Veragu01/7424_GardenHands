@@ -24,6 +24,7 @@ import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 
 import Gardener_Uly.MyAvailability.Gardener_SetAvailability;
+import Gardener_Uly.MyJobs.Gardener_MyJobs;
 import Gardener_Uly.MyProfile.Gardener_MyProfile;
 import Gardener_Uly.OpenJobs.Gardener_OpenJobs;
 import Gardener_Uly.WeeklyCalendar.Gardener_WeeklyCalendar;
@@ -68,15 +69,14 @@ Button btnViewJobs, btnMyJobs, btnMyWeek, btnMyProfile, btnSetAvailability;
         btnMyJobs.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(getApplicationContext(), "Opening My Jobs", Toast.LENGTH_SHORT).show();
-
+                Intent intent = new Intent(getApplicationContext(), Gardener_MyJobs.class);
+                startActivity(intent);
             }
         });
 
         btnMyWeek.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(getApplicationContext(), "Opening My Weekly Calendar", Toast.LENGTH_SHORT).show();
                 Intent intent = new Intent(getApplicationContext(), Gardener_WeeklyCalendar.class);
                 startActivity(intent);
 
