@@ -1,8 +1,10 @@
 package Gardener_Uly.MyProfile;
 
 import android.content.Intent;
+import android.graphics.Rect;
 import android.os.Bundle;
 import android.view.View;
+import android.view.ViewTreeObserver;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
@@ -21,6 +23,7 @@ import com.AGU.gardenhands.LoginActivity;
 import com.AGU.gardenhands.R;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.android.material.card.MaterialCardView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.DocumentReference;
@@ -29,10 +32,11 @@ import com.google.firebase.firestore.FirebaseFirestore;
 
 public class Gardeners_UpdateProfile extends AppCompatActivity {
 
-    LinearLayout profileFieldsLayout;
+    LinearLayout profileFieldsLayout, mainLayout;
     ProgressBar pbProfileLoading;
     EditText txtName, txtEmail, txtPhone, txtPassword, txtConfirmPassword;
     Button btnUpdateDetails, btnCancel;
+    MaterialCardView crdNameCard, crdEmailCard, crdPhoneCard;
 
     FirebaseAuth mAuth;
     FirebaseUser user;
@@ -132,6 +136,37 @@ public class Gardeners_UpdateProfile extends AppCompatActivity {
             }
         });
 
+
+        mainLayout = findViewById(R.id.main);
+        crdNameCard = findViewById(R.id.crdNameCard);
+        crdEmailCard = findViewById(R.id.crdEmailCard);
+        crdPhoneCard = findViewById(R.id.crdPhoneCard);
+        mainLayout.getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
+            @Override
+            public void onGlobalLayout() {
+                Rect r = new Rect();
+                mainLayout.getWindowVisibleDisplayFrame(r);
+                int heightDiff = mainLayout.getRootView().getHeight() - (r.bottom - r.top);
+
+                // Check if the keyboard is visible
+                if (heightDiff > 200) { // 200 can be adjusted based on your needs
+                    // Keyboard is open
+                    if (txtPassword.hasFocus() || txtConfirmPassword.hasFocus()){
+                        crdNameCard.setVisibility(View.GONE);
+                        crdEmailCard.setVisibility(View.GONE);
+                        crdPhoneCard.setVisibility(View.GONE);
+
+                    }
+                } else {
+                    // Keyboard is closed
+                    crdNameCard.setVisibility(View.VISIBLE);
+                    crdEmailCard.setVisibility(View.VISIBLE);
+                    crdPhoneCard.setVisibility(View.VISIBLE);
+
+
+                }
+            }
+        });
 
     }
 

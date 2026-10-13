@@ -189,9 +189,9 @@ public class Gardener_ProvideQuote extends AppCompatActivity {
 
 
         mainLayout = findViewById(R.id.main);
-        FrameLayout.LayoutParams params = (FrameLayout.LayoutParams) mainLayout.getLayoutParams();
-        params.setMargins(0, 0, 0, 0);
-        mainLayout.setLayoutParams(params);
+//        FrameLayout.LayoutParams params = (FrameLayout.LayoutParams) mainLayout.getLayoutParams();
+//        params.setMargins(0, 0, 0, 0);
+//        mainLayout.setLayoutParams(params);
 
         mainLayout.getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
             @Override
@@ -204,13 +204,17 @@ public class Gardener_ProvideQuote extends AppCompatActivity {
                 if (heightDiff > 200) { // 200 can be adjusted based on your needs
                     // Keyboard is open
                     if (etxtNotes.hasFocus()){
-                        params.setMargins(0, -450, 0, 0);
-                        mainLayout.setLayoutParams(params);
+                        crdDateCard.setVisibility(View.GONE);
+                        crdFeeCard.setVisibility(View.GONE);
+//                        params.setMargins(0, -450, 0, 0);
+//                        mainLayout.setLayoutParams(params);
                     }
                 } else {
                     // Keyboard is closed
-                    params.setMargins(0, 0, 0, 0);
-                    mainLayout.setLayoutParams(params);
+                    crdDateCard.setVisibility(View.VISIBLE);
+                    crdFeeCard.setVisibility(View.VISIBLE);
+//                    params.setMargins(0, 0, 0, 0);
+//                    mainLayout.setLayoutParams(params);
 
                 }
             }
