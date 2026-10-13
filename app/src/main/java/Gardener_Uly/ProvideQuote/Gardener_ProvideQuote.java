@@ -51,7 +51,8 @@ public class Gardener_ProvideQuote extends AppCompatActivity {
     FirebaseAuth mAuth;
     FirebaseUser user;
     FirebaseFirestore db;
-    DocumentSnapshot jobDocument;
+    DocumentSnapshot jobDocument, timeslotDocument;
+    CollectionReference colRef, quoteCollection;
     RadioButton rbAM, rbPM;
 
 
@@ -135,7 +136,7 @@ public class Gardener_ProvideQuote extends AppCompatActivity {
                 // Create Quote in database
 
                 if (!etxtFee.getText().toString().trim().isEmpty() && (rbAM.isChecked() || rbPM.isChecked())) {
-                    CollectionReference colRef = db.collection("timeslots");
+                    colRef = db.collection("timeslots");
                     colRef.whereEqualTo("date", date).whereEqualTo("session", session).whereEqualTo("gardener", user.getUid()).get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                         @Override
                         public void onComplete(@NonNull Task<QuerySnapshot> task) {
@@ -145,6 +146,7 @@ public class Gardener_ProvideQuote extends AppCompatActivity {
                                     timeslotexists = true;
                                     timeslotID = document.getId();
                                     timeslotAvailability = document.get("availability").toString();
+                                    getTimeslot();
                                 }
                                 if (!timeslotexists)  {
                                     //create new timeslot
@@ -158,6 +160,7 @@ public class Gardener_ProvideQuote extends AppCompatActivity {
                                         public void onComplete(@NonNull Task<Void> task) {
                                             if (task.isSuccessful()) {
                                                 Toast.makeText(getApplicationContext(), "Success: Timeslot Created", Toast.LENGTH_LONG).show();
+                                                getTimeslot();
                                             }
                                         }
                                     });
@@ -166,35 +169,12 @@ public class Gardener_ProvideQuote extends AppCompatActivity {
                         }
                     });
 
-                    colRef.whereEqualTo("date", date).whereEqualTo("session", session).whereEqualTo("gardener", user.getUid()).get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-                        @Override
-                        public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                            if (task.isSuccessful()) {
-                                for (QueryDocumentSnapshot document : task.getResult()) { // timeslot exists
-                                    timeslotID = document.getId();
-                                    timeslotAvailability = document.get("availability").toString();
-                                }
-                            }
-
-                        }
-                    });
 
 
 
-                    Map<String, Object> newQuote = new HashMap<>();
-                    newQuote.put("customerID", jobDocument.get("customer"));
-                    newQuote.put("fee", etxtFee.getText().toString());
-                    newQuote.put("gardenerID", user.getUid());
-                    newQuote.put("notes", etxtNotes.getText().toString());
-                    newQuote.put("timeslot", timeslotID);
-                    db.collection("quotes").document().set(newQuote).addOnCompleteListener(new OnCompleteListener<Void>() {
-                        @Override
-                        public void onComplete(@NonNull Task<Void> task) {
-                            if (task.isSuccessful()) {
-                                Toast.makeText(getApplicationContext(), "Success: Quote Sent", Toast.LENGTH_LONG).show();
-                            }
-                        }
-                    });
+
+
+
                 }
 
             }
@@ -246,5 +226,61 @@ public class Gardener_ProvideQuote extends AppCompatActivity {
         year = dpCalendarSpinner.getYear();
         date = dayOfMonth+"/"+(monthIndex+1)+"/"+year;
 
+    }
+
+    public void getTimeslot() {
+        colRef.whereEqualTo("date", date).whereEqualTo("session", session).whereEqualTo("gardener", user.getUid()).get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                if (task.isSuccessful() ) {
+                    timeslotDocument = task.getResult().getDocuments().get(0);
+                    timeslotID = timeslotDocument.getId();
+                    timeslotAvailability = timeslotDocument.getString("availability");
+                    if (timeslotAvailability.equals("Available")) {
+                        checkQuotes();
+                    } else {
+                        Toast.makeText(getApplicationContext(), "Error: Timeslot Unavailable", Toast.LENGTH_LONG).show();
+                    }
+
+                }
+            }
+        });
+    }
+
+    public void checkQuotes() {
+        db.collection("quotes").whereEqualTo("gardenerID", user.getUid()).whereEqualTo("jobID", jobDocument.getId()).get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                if (task.isSuccessful()) {
+                    Boolean quoteExists = false;
+                    for (QueryDocumentSnapshot document : task.getResult()) {// timeslot exists
+                        quoteExists = true;
+                        Toast.makeText(getApplicationContext(), "Error: Quote already sent", Toast.LENGTH_SHORT).show();
+                    }
+                    if (!quoteExists) {
+                        createQuote();
+                    }
+                }
+            }
+        });
+
+    }
+    public void createQuote() {
+        Map<String, Object> newQuote = new HashMap<>();
+        newQuote.put("customerID", jobDocument.get("customer"));
+        newQuote.put("fee", etxtFee.getText().toString());
+        newQuote.put("gardenerID", user.getUid());
+        newQuote.put("notes", etxtNotes.getText().toString());
+        newQuote.put("timeslot", timeslotDocument.getId());
+        newQuote.put("jobID", jobDocument.getId());
+        db.collection("quotes").document().set(newQuote).addOnCompleteListener(new OnCompleteListener<Void>() {
+            @Override
+            public void onComplete(@NonNull Task<Void> task) {
+                if (task.isSuccessful()) {
+                    Toast.makeText(getApplicationContext(), "Success: Quote Sent", Toast.LENGTH_LONG).show();
+                    finish();
+                }
+            }
+        });
     }
 }

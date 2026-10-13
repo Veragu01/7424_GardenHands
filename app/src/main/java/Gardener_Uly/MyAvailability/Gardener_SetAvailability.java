@@ -80,8 +80,8 @@ public class Gardener_SetAvailability extends AppCompatActivity {
 
         Calendar today = Calendar.getInstance();
 
-        String[] AMPM = {"Please Select", "AM", "PM"};
-        String[] lstAvailability = {"Please Select", "Available", "Unavailable"};
+        String[] AMPM = {"Please Select ▼", "AM", "PM"};
+        String[] lstAvailability = {"Please Select ▼", "Available", "Unavailable"};
 
         ArrayAdapter<String> adTime = new ArrayAdapter<>(getApplicationContext(), android.R.layout.simple_spinner_item, AMPM);
         adTime.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);

@@ -64,7 +64,7 @@ public class Gardener_OpenJobs extends AppCompatActivity {
 
 
         CollectionReference colRef = db.collection("jobs");
-        colRef.whereEqualTo("job_status", "open").get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+        colRef.whereEqualTo("job_status", "verified").get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
             @Override
             public void onComplete(@NonNull Task<QuerySnapshot> task) {
                 if (task.isSuccessful()){

@@ -81,14 +81,20 @@
                         android:text="AM"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginHorizontal="5dp"/>
+                        android:layout_marginHorizontal="5dp"
+                        android:textColor="@color/black"
+                        android:buttonTint="@color/primary_green"
+                        android:checked="true"
+                        />
 
                     <RadioButton
                         android:id="@+id/rbGPQ_PM"
                         android:text="PM"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginHorizontal="5dp"/>
+                        android:layout_marginHorizontal="5dp"
+                        android:textColor="@color/black"
+                        />
                 </LinearLayout>
 
             </LinearLayout>
