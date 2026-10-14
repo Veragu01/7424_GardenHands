@@ -33,6 +33,38 @@
             android:name="Admin_Greg.Admin_Dashboard"
             android:exported="false"
             android:windowSoftInputMode="adjustResize" />
+        <activity
+            android:name="Gardener_Uly.OpenJobs.Gardener_OpenJobs"
+            android:exported="false"
+            android:windowSoftInputMode="adjustResize" />
+        <activity
+            android:name="Gardener_Uly.MyProfile.Gardener_MyProfile"
+            android:exported="false"
+            android:windowSoftInputMode="adjustResize" />
+        <activity
+            android:name="Gardener_Uly.WeeklyCalendar.Gardener_WeeklyCalendar"
+            android:exported="false"
+            android:windowSoftInputMode="adjustResize" />
+        <activity
+            android:name="Gardener_Uly.MyProfile.Gardeners_UpdateProfile"
+            android:exported="false"
+            android:windowSoftInputMode="adjustResize" />
+        <activity
+            android:name="Gardener_Uly.MyAvailability.Gardener_SetAvailability"
+            android:exported="false"
+            android:windowSoftInputMode="adjustResize" />
+        <activity
+            android:name="Gardener_Uly.MyJobs.Gardener_MyJobs"
+            android:exported="false"
+            android:windowSoftInputMode="adjustResize" />
+        <activity
+            android:name="Gardener_Uly.JobDetails.Gardener_JobDetails"
+            android:exported="false"
+            android:windowSoftInputMode="adjustResize" />
+        <activity
+            android:name="Gardener_Uly.ProvideQuote.Gardener_ProvideQuote"
+            android:exported="false"
+            android:windowSoftInputMode="adjustResize" />
     </application>
 
 </manifest>
