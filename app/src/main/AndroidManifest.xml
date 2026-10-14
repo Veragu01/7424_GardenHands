@@ -59,6 +59,9 @@
             android:windowSoftInputMode="adjustResize" />
         <activity
             android:name="Admin_Greg.Users.ViewSelectUser.Admin_ViewSelectUser"
+            android:exported="false"
+            android:windowSoftInputMode="adjustResize" />
+        <activity
             android:name="Gardener_Uly.OpenJobs.Gardener_OpenJobs"
             android:exported="false"
             android:windowSoftInputMode="adjustResize" />
