@@ -78,7 +78,7 @@ public class Admin_VerifyNewJobs extends AppCompatActivity {
                         Admin_Job job = document.toObject(Admin_Job.class);
                         job.setDocumentId(document.getId());
                         String status = job.getJob_status();
-                        if (status == null || status.trim().isEmpty() || "pending".equalsIgnoreCase(status)) {
+                        if ("pending".equalsIgnoreCase(status)) {
                             jobList.add(job);
                         }
                     }

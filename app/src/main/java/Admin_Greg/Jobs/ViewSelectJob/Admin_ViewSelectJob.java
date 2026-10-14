@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
@@ -25,6 +26,7 @@ import com.google.firebase.firestore.QuerySnapshot;
 public class Admin_ViewSelectJob extends AppCompatActivity {
 
     EditText edit_jobcard_title, edit_jobcard_description, edit_jobcard_location, edit_jobcard_customer, edit_jobcard_gardener, edit_jobcard_status;
+    TextView txt_jobcard_gardener;
 
     Button btn_jobcard_verify, btn_jobcard_deny, btn_jobcard_close, btn_jobcard_delete;
 
@@ -44,6 +46,7 @@ public class Admin_ViewSelectJob extends AppCompatActivity {
         edit_jobcard_location = findViewById(R.id.edit_jobcard_location);
         edit_jobcard_customer = findViewById(R.id.edit_jobcard_customer);
         edit_jobcard_gardener = findViewById(R.id.edit_jobcard_gardener);
+        txt_jobcard_gardener = findViewById(R.id.txt_jobcard_gardener);
         edit_jobcard_status = findViewById(R.id.edit_jobcard_status);
 
         btn_jobcard_verify = findViewById(R.id.btn_jobcard_verify);
@@ -82,6 +85,8 @@ public class Admin_ViewSelectJob extends AppCompatActivity {
         if ("verify".equals(screenMode)) {
             btn_jobcard_verify.setVisibility(View.VISIBLE);
             btn_jobcard_deny.setVisibility(View.VISIBLE);
+            edit_jobcard_gardener.setVisibility(View.GONE);
+            txt_jobcard_gardener.setVisibility(View.GONE);
         } else if ("close".equals(screenMode)) {
             btn_jobcard_close.setVisibility(View.VISIBLE);
         } else if ("delete".equals(screenMode)) {

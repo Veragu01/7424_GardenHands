@@ -42,15 +42,23 @@
             android:exported="false"
             android:windowSoftInputMode="adjustResize" />
         <activity
-            android:name="Admin_Greg.Jobs.Admin_VerifyNewJobs"
+            android:name="Admin_Greg.Jobs.VerifyNewJobs.Admin_VerifyNewJobs"
             android:exported="false"
             android:windowSoftInputMode="adjustResize" />
         <activity
-            android:name="Admin_Greg.Jobs.Admin_CloseFinishedJobs"
+            android:name="Admin_Greg.Jobs.CloseFinishedJobs.Admin_CloseFinishedJobs"
             android:exported="false"
             android:windowSoftInputMode="adjustResize" />
         <activity
-            android:name="Admin_Greg.Jobs.Admin_DeleteJobs"
+            android:name="Admin_Greg.Jobs.DeleteJobs.Admin_DeleteJobs"
+            android:exported="false"
+            android:windowSoftInputMode="adjustResize" />
+        <activity
+            android:name="Admin_Greg.Jobs.ViewAllJobs.Admin_ViewAllJobs"
+            android:exported="false"
+            android:windowSoftInputMode="adjustResize" />
+        <activity
+            android:name="Admin_Greg.Jobs.ViewSelectJob.Admin_ViewSelectJob"
             android:exported="false"
             android:windowSoftInputMode="adjustResize" />
         <activity

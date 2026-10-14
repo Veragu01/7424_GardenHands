@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -59,10 +60,10 @@ public class Admin_JobAdapter extends RecyclerView.Adapter<Admin_JobViewHolder> 
             holder.txtJobFee.setText("Fee not set");
         }
 
-        holder.txtJobStatus.setText(job.getJob_status());
+        String status = job.getJob_status();
+        holder.txtJobStatus.setText(status != null ? status : "");
 
         holder.txtJobCustomer.setText("Loading...");
-        holder.txtJobGardener.setText(job.getGardenerID() == null || job.getGardenerID().trim().isEmpty() ? "No gardener yet" : "Loading...");
 
         // get customer name
         String customerId = job.getCustomerID();
@@ -92,6 +93,8 @@ public class Admin_JobAdapter extends RecyclerView.Adapter<Admin_JobViewHolder> 
                     }
                 }
             });
+        } else {
+            holder.txtJobGardener.setText("No gardener yet");
         }
 
         holder.itemView.setOnClickListener(new View.OnClickListener() {
@@ -101,18 +104,20 @@ public class Admin_JobAdapter extends RecyclerView.Adapter<Admin_JobViewHolder> 
 
                 intent.putExtra("documentId", job.getDocumentId());
                 intent.putExtra("customer", job.getCustomerID());
-                intent.putExtra("gardener", job.getGardenerID());
                 intent.putExtra("job_title", job.getJob_title());
                 intent.putExtra("job_type", job.getJob_type());
                 intent.putExtra("job_description", job.getJob_description());
                 intent.putExtra("location", job.getLocation());
-                intent.putExtra("date_time", job.getDate_time());
-                intent.putExtra("fee", job.getFee());
                 intent.putExtra("job_status", job.getJob_status());
-                intent.putExtra("repeating", job.getRepeating());
                 intent.putExtra("size", job.getSize());
-                intent.putExtra("before_pic", job.getBefore_pic());
                 intent.putExtra("screenMode", screenMode);
+
+                String currentStatus = job.getJob_status();
+                if (currentStatus != null && (currentStatus.equalsIgnoreCase("in_progress") || currentStatus.equalsIgnoreCase("in progress") || currentStatus.equalsIgnoreCase("work_completed") || currentStatus.equalsIgnoreCase("finished") || currentStatus.equalsIgnoreCase("closed"))) {
+                    intent.putExtra("date_time", job.getDate_time());
+                    intent.putExtra("fee", job.getFee());
+                    intent.putExtra("gardener", job.getGardenerID());
+                }
 
                 v.getContext().startActivity(intent);
             }
