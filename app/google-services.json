@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "256264808226",
+    "project_id": "group-assignment-s2",
+    "storage_bucket": "group-assignment-s2.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:256264808226:android:dcc052a0fbd857ebda277b",
+        "android_client_info": {
+          "package_name": "com.AGU.gardenhands"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCYKdVzzKB0WN-W2IEHkcbm0vg6rZwtzKg"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

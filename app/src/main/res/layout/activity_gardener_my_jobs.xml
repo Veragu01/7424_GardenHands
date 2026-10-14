@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="Gardener_Uly.MyJobs.Gardener_MyJobs"
+    android:orientation="vertical"
+    android:gravity="center_horizontal"
+    android:background="@color/background_green">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="My Jobs"
+        android:textStyle="bold"
+        android:textSize="24sp"
+        android:textColor="@color/black"
+        android:layout_marginTop="42sp"
+        android:layout_marginBottom="16sp"
+        />
+
+    <ProgressBar
+        android:id="@+id/pbGMJLoading"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:visibility="visible"
+        android:indeterminateTint="@color/dark_grey"
+        />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rvGMJMyJobs"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginBottom="20sp"
+        android:visibility="visible"
+        />
+
+</LinearLayout>

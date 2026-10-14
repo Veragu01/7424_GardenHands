@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/GCV_MyJob_Card"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_marginTop="30dp"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    app:cardElevation="5dp"
+    app:cardCornerRadius="20dp"
+    android:layout_marginHorizontal="20dp"
+    android:background="@color/off_white">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center_horizontal"
+        android:background="@color/white"
+
+        >
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_marginLeft="15sp"
+
+            >
+            <TextView
+                android:id="@+id/GCVMyJob_Title"
+                android:layout_width="285sp"
+                android:layout_height="wrap_content"
+                android:layout_marginVertical="5dp"
+                android:maxHeight="60dp"
+                android:text="Job Title"
+                android:textSize="20dp"
+                android:textColor="@color/black"
+                />
+            <TextView
+                android:id="@+id/GCVMyJob_ID"
+                android:layout_width="285sp"
+                android:layout_height="wrap_content"
+                android:text=""
+                android:visibility="gone"
+                />
+
+            <TextView
+                android:id="@+id/GCVMyJob_Type"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginVertical="5dp"
+                android:text="Job Type"
+                android:textSize="15dp"
+                android:textColor="@color/black"
+                />
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                >
+                <TextView
+                    android:id="@+id/GCVMyJob_Size"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginVertical="5dp"
+                    android:text="Job Size"
+                    android:textSize="15dp"
+                    android:textColor="@color/black"
+                    />
+                <Space
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+
+                    />
+                <TextView
+                    android:id="@+id/GCVMyJob_Date"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginVertical="5dp"
+                    android:layout_marginHorizontal="16sp"
+                    android:text="day/mon/year"
+                    android:textSize="15dp"
+                    android:textColor="@color/black"
+                    />
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+
+    </LinearLayout>
+
+</com.google.android.material.card.MaterialCardView>
