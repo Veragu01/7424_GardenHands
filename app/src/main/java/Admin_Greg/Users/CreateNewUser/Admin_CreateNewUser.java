@@ -1,9 +1,11 @@
 package Admin_Greg.Users.CreateNewUser;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ProgressBar;
 import android.widget.RadioButton;
 import android.widget.Toast;
 
@@ -25,6 +27,9 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import java.util.HashMap;
 import java.util.Map;
 
+import Admin_Greg.Admin_Dashboard;
+import Admin_Greg.Jobs.CloseFinishedJobs.Admin_CloseFinishedJobs;
+
 public class Admin_CreateNewUser extends AppCompatActivity {
 
     FirebaseAuth mAuth;
@@ -33,6 +38,7 @@ public class Admin_CreateNewUser extends AppCompatActivity {
     RadioButton rbCustomer, rbGardener;
     EditText txtFullName, txtPassword, txtConfirmPassword, txtEmail, txtPhone;
     Button btnCreateNewAccount;
+    ProgressBar progressBar;
 
     String user_group;
     String authorised;
@@ -57,14 +63,14 @@ public class Admin_CreateNewUser extends AppCompatActivity {
         txtEmail = findViewById(R.id.txtAdminCreateNewEmail);
         txtPhone = findViewById(R.id.txtAdminCreateNewPhone);
         btnCreateNewAccount = findViewById(R.id.btnAdminCreateNewAccount);
+        progressBar = findViewById(R.id.progressBarAdmin);
+
+        progressBar.setVisibility(View.GONE);
+        btnCreateNewAccount.setVisibility(View.VISIBLE);
 
         mAuth = FirebaseAuth.getInstance();
         db = FirebaseFirestore.getInstance();
 
-
-
-
-        // Changes selected account type to customer and unchecks gardener radio button
         rbCustomer.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -76,7 +82,6 @@ public class Admin_CreateNewUser extends AppCompatActivity {
             }
         });
 
-        // Changes selected account type to gardener and unchecks customer radio button
         rbGardener.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -88,18 +93,18 @@ public class Admin_CreateNewUser extends AppCompatActivity {
             }
         });
 
-
-
         btnCreateNewAccount.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                progressBar.setVisibility(View.VISIBLE);
+                btnCreateNewAccount.setVisibility(View.GONE);
+
                 String password = txtPassword.getText().toString().trim();
                 String confirmPassword = txtConfirmPassword.getText().toString().trim();
                 String email = txtEmail.getText().toString().trim();
                 String fullName = txtFullName.getText().toString().trim();
                 String phone = txtPhone.getText().toString().trim();
-
-                if (!fieldsEmpty()){
+                if (!fullName.equals("") && !password.equals("") && !confirmPassword.equals("") && !email.equals("") && !phone.equals("")){
                     if (password.equals(confirmPassword)) {
                         mAuth.createUserWithEmailAndPassword(email, password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                             @Override
@@ -116,41 +121,31 @@ public class Admin_CreateNewUser extends AppCompatActivity {
                                         @Override
                                         public void onComplete(@NonNull Task<Void> task) {
                                             if (task.isSuccessful()){
+                                                progressBar.setVisibility(View.GONE);
                                                 Toast.makeText(getApplicationContext(), "Success: New profile created", Toast.LENGTH_SHORT).show();
+                                                Intent intent = new Intent(Admin_CreateNewUser.this, Admin_Dashboard.class);
+                                                startActivity(intent);
                                             }
                                         }
                                     });
                                 } else {
+                                    progressBar.setVisibility(View.GONE);
+                                    btnCreateNewAccount.setVisibility(View.VISIBLE);
                                     Toast.makeText(getApplicationContext(), "Unsuccessful: Cannot create new account", Toast.LENGTH_SHORT).show();
-
                                 }
                             }
                         });
-
                     } else {
+                        progressBar.setVisibility(View.GONE);
+                        btnCreateNewAccount.setVisibility(View.VISIBLE);
                         Toast.makeText(getApplicationContext(), "Error: Passwords do not match", Toast.LENGTH_SHORT).show();
                     }
-
                 } else {
+                    progressBar.setVisibility(View.GONE);
+                    btnCreateNewAccount.setVisibility(View.VISIBLE);
                     Toast.makeText(getApplicationContext(), "Error: One or more fields are empty", Toast.LENGTH_SHORT).show();
                 }
             }
         });
-
-
-
-    }
-
-    public boolean fieldsEmpty(){
-        String fullName = txtFullName.getText().toString().trim();
-        String password = txtPassword.getText().toString().trim();
-        String confirmPassword = txtConfirmPassword.getText().toString().trim();
-        String email = txtEmail.getText().toString().trim();
-        String phone = txtPhone.getText().toString().trim();
-
-        if (fullName.isEmpty() || password.isEmpty() || confirmPassword.isEmpty() || email.isEmpty() || phone.isEmpty() || user_group.isEmpty() ){
-            return true;
-        }
-        return false;
     }
 }
