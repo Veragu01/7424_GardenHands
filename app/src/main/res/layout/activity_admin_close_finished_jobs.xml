@@ -5,7 +5,7 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="Admin_Greg.Jobs.Admin_CloseFinishedJobs"
+    tools:context="Admin_Greg.Jobs.CloseFinishedJobs.Admin_CloseFinishedJobs"
     android:orientation="vertical"
     android:gravity="center_horizontal">
 
@@ -21,9 +21,10 @@
         android:orientation="vertical">
 
         <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/recyclerFinishedJobs"
+            android:id="@+id/recyclerClose"
             android:layout_width="match_parent"
             android:layout_height="match_parent" />
+
     </LinearLayout>
 
 </LinearLayout>

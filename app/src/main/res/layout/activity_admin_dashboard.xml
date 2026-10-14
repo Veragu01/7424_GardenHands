@@ -29,6 +29,11 @@
     <Button
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:text="View All Jobs"
+        android:id="@+id/btn_AdminDashboardViewAllJobs"/>
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         android:text="Verify New Jobs"
         android:id="@+id/btn_AdminDashboardVerifyNewJobs"/>
     <Button
@@ -41,5 +46,13 @@
         android:layout_height="wrap_content"
         android:text="Delete Jobs"
         android:id="@+id/btn_Admin_DashboardDeleteJobs"/>
+    <Space
+        android:layout_width="match_parent"
+        android:layout_height="40dp"/>
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Log Out"
+        android:id="@+id/btn_AdminDashboardLogOut"/>
 
 </LinearLayout>

@@ -5,7 +5,7 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="Admin_Greg.Jobs.Admin_VerifyNewJobs"
+    tools:context="Admin_Greg.Jobs.VerifyNewJobs.Admin_VerifyNewJobs"
     android:orientation="vertical"
     android:gravity="center_horizontal">
 
@@ -13,4 +13,18 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Verify New Jobs"/>
+
+    <LinearLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recyclerVerify"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+
+    </LinearLayout>
+
 </LinearLayout>
