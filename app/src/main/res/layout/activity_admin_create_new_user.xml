@@ -7,7 +7,9 @@
     android:layout_height="match_parent"
     tools:context="Admin_Greg.Users.CreateNewUser.Admin_CreateNewUser"
     android:orientation="vertical"
-    android:gravity="center">
+    android:gravity="center_horizontal"
+    android:layout_marginTop="20dp"
+    android:layout_margin="9dp">
 
     <TextView
         android:layout_width="wrap_content"
@@ -39,12 +41,14 @@
                 <RadioButton
                     android:id="@+id/rdoAdminCreateNewCustomer"
                     android:text="Customer"
+                    android:textSize="12sp"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginHorizontal="5dp"/>
                 <RadioButton
                     android:id="@+id/rdoAdminCreateNewGardener"
                     android:text="Gardener"
+                    android:textSize="12sp"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginHorizontal="5dp"/>
@@ -162,10 +166,14 @@
         <Button
             android:layout_marginHorizontal="10dp"
             android:id="@+id/btnAdminCreateNewAccount"
-            android:layout_width="0dp"
-            android:layout_weight="1"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Create new account"/>
+        <ProgressBar
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/progressBarAdmin"
+            android:visibility="gone"/>
 
     </LinearLayout>
 
