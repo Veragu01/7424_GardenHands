@@ -23,8 +23,8 @@ import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.ArrayList;
 
-import Admin_Greg.Users.Admin_User;
-import Admin_Greg.Users.Admin_UserAdapter;
+import Admin_Greg.Users.UserDetails.Admin_User;
+import Admin_Greg.Users.UserDetails.Admin_UserAdapter;
 
 public class Admin_ViewAllUsers extends AppCompatActivity {
 
@@ -48,31 +48,19 @@ public class Admin_ViewAllUsers extends AppCompatActivity {
             return insets;
         });
 
-
-        // recyclerviwe
         recyclerUsers = findViewById(R.id.recyclerUsers);
 
         recyclerUsers.setLayoutManager(new LinearLayoutManager(this));
 
-
-        //user list
         userList = new ArrayList<>();
 
-
-        //  adapter
         adapter = new Admin_UserAdapter(userList);
 
         recyclerUsers.setAdapter(adapter);
 
-
-        //firebase
         db = FirebaseFirestore.getInstance();
-
-
-
-
-
     }
+
     @Override
     protected void onResume() {
         super.onResume();

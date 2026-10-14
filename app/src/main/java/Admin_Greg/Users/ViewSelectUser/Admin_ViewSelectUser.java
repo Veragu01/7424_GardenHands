@@ -1,4 +1,3 @@
-
 package Admin_Greg.Users.ViewSelectUser;
 
 import android.os.Bundle;
@@ -122,14 +121,11 @@ public class Admin_ViewSelectUser extends AppCompatActivity {
         btn_usercard_deactivate_confirm.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
-                //check user ID exists
                 if (userID == null || userID.isEmpty()) {
                     Toast.makeText(Admin_ViewSelectUser.this, "User ID doesn't exist", Toast.LENGTH_SHORT).show();
                     return;
                 }
 
-                //check all jobs
                 db.collection("jobs").get().addOnCompleteListener(new OnCompleteListener<com.google.firebase.firestore.QuerySnapshot>() {
                     @Override
                     public void onComplete(@NonNull Task<com.google.firebase.firestore.QuerySnapshot> task) {
@@ -148,13 +144,13 @@ public class Admin_ViewSelectUser extends AppCompatActivity {
                                 if (jobStatus != null) {
                                     jobStatus = jobStatus.trim().toLowerCase();
                                 }
-                                if ((userID.equals(customer) || userID.equals(gardener)) && ("in_progress".equals(jobStatus) || "in progress".equals(jobStatus) || "work_completed".equals(jobStatus) || "work completed".equals(jobStatus))) {
+                                if ((userID.equals(customer) || userID.equals(gardener)) && ("in_progress".equals(jobStatus) || "in progress".equals(jobStatus) || "work_completed".equals(jobStatus) || "work completed".equals(jobStatus) || "finished".equals(jobStatus) || "closed".equals(jobStatus))) {
                                     activeJobFound = true;
                                     break;
                                 }
                             }
                             if (activeJobFound) {
-                                Toast.makeText(Admin_ViewSelectUser.this, "Unable to deactivate user with jobs in progress.", Toast.LENGTH_LONG).show();
+                                Toast.makeText(Admin_ViewSelectUser.this, "Unable to deactivate user with active or finished jobs.", Toast.LENGTH_LONG).show();
                                 btn_usercard_activate.setVisibility(View.GONE);
                                 btn_usercard_deactivate.setVisibility(View.GONE);
                             } else {
@@ -163,7 +159,6 @@ public class Admin_ViewSelectUser extends AppCompatActivity {
                                 edit_usercard_authorised.setEnabled(false);
                                 btn_usercard_deactivate_cancel.setVisibility(View.GONE);
                                 btn_usercard_deactivate_confirm.setVisibility(View.GONE);
-                                //go back to previous activity
                             }
                         }
                     }
@@ -174,14 +169,12 @@ public class Admin_ViewSelectUser extends AppCompatActivity {
         btn_usercard_save.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //check for blanks
                 if(edit_usercard_name.getText().toString().trim().equals("") || edit_usercard_usergroup.getText().toString().trim().equals("") || edit_usercard_email.getText().toString().trim().equals("") || edit_usercard_phone.getText().toString().trim().equals("") || edit_usercard_authorised.getText().toString().trim().equals(""))
                 {
                     Toast.makeText(Admin_ViewSelectUser.this, "Please fill in all details correctly.", Toast.LENGTH_SHORT).show();
                     return;
                 }
 
-                //check authorised format
                 String authorised = edit_usercard_authorised.getText().toString().trim();
                 if(!authorised.equalsIgnoreCase("true") && !authorised.equalsIgnoreCase("false"))
                 {
@@ -189,36 +182,30 @@ public class Admin_ViewSelectUser extends AppCompatActivity {
                     return;
                 }
 
-                //check for valid phone number
                 if(!edit_usercard_phone.getText().toString().trim().matches("\\d+"))
                 {
                     Toast.makeText(Admin_ViewSelectUser.this, "Invalid phone number.", Toast.LENGTH_SHORT).show();
                     return;
                 }
 
-                // check for valid email
                 if(!Patterns.EMAIL_ADDRESS.matcher(edit_usercard_email.getText().toString().trim()).matches())
                 {
                     Toast.makeText(Admin_ViewSelectUser.this, "Invalid email address.", Toast.LENGTH_SHORT).show();
                     return;
                 }
 
-                // edited details
                 String name = edit_usercard_name.getText().toString().trim();
                 String usergroup = edit_usercard_usergroup.getText().toString().trim();
                 String email = edit_usercard_email.getText().toString().trim();
                 String phone = edit_usercard_phone.getText().toString().trim();
 
-                //check user is exists
                 if (userID == null || userID.isEmpty()) {
                     Toast.makeText(Admin_ViewSelectUser.this, "User ID doesn't exist", Toast.LENGTH_SHORT).show();
                     return;
                 }
 
-                //reference selected users firestore document
                 DocumentReference docRef = db.collection("users").document(userID);
 
-                //update fields
                 docRef.update("name", name,"user_group", usergroup, "email", email, "phone", phone, "authorised", authorised).addOnCompleteListener(new OnCompleteListener<Void>() {
                     @Override
                     public void onComplete(@NonNull Task<Void> task) {
