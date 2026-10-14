@@ -1,5 +1,4 @@
 package Gardener_Uly;
-
 public class Jobs {
     public String before_pic;
     public String documentId;
@@ -33,7 +32,7 @@ public class Jobs {
     public Jobs() {
 
     }
-
+  
     public String getBefore_pic() {
         return before_pic;
     }
