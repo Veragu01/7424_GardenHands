@@ -37,6 +37,7 @@ public class RegisterActivity extends AppCompatActivity {
     Button btnCreateNewAccount, btnCancelNewAccount;
 
     String user_group;
+    String authorised;
 
 
     @Override
@@ -66,6 +67,7 @@ public class RegisterActivity extends AppCompatActivity {
 
 
 
+
         // Changes selected account type to customer and unchecks gardener radio button
         rbCustomer.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -74,6 +76,7 @@ public class RegisterActivity extends AppCompatActivity {
                 rbCustomer.setChecked(true);
                 Toast.makeText(getApplicationContext(), "test 1", Toast.LENGTH_SHORT).show();
                 user_group = "Customers";
+                authorised = "True";
             }
         });
 
@@ -85,6 +88,7 @@ public class RegisterActivity extends AppCompatActivity {
                 rbCustomer.setChecked(false);
                 Toast.makeText(getApplicationContext(), "test 2", Toast.LENGTH_SHORT).show();
                 user_group = "Gardeners";
+                authorised = "False";
             }
         });
 
@@ -103,13 +107,13 @@ public class RegisterActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 String password = txtPassword.getText().toString().trim();
-                String confrimPassword = txtConfirmPassword.getText().toString().trim();
+                String confirmPassword = txtConfirmPassword.getText().toString().trim();
                 String email = txtEmail.getText().toString().trim();
                 String fullName = txtFullName.getText().toString().trim();
                 String phone = txtPhone.getText().toString().trim();
 
                 if (!fieldsEmpty()){
-                    if (password.equals(confrimPassword)) {
+                    if (password.equals(confirmPassword)) {
                         mAuth.createUserWithEmailAndPassword(email, password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                             @Override
                             public void onComplete(@NonNull Task<AuthResult> task) {
@@ -117,8 +121,10 @@ public class RegisterActivity extends AppCompatActivity {
                                     String uID = mAuth.getCurrentUser().getUid();
                                     Map<String, Object> newUser = new HashMap<>();
                                     newUser.put("name", fullName);
+                                    newUser.put("email",email);
                                     newUser.put("phone", phone);
                                     newUser.put("user_group", user_group);
+                                    newUser.put("authorised", authorised);
                                     db.collection("users").document(uID).set(newUser).addOnCompleteListener(new OnCompleteListener<Void>() {
                                         @Override
                                         public void onComplete(@NonNull Task<Void> task) {
@@ -154,11 +160,11 @@ public class RegisterActivity extends AppCompatActivity {
     public boolean fieldsEmpty(){
         String fullName = txtFullName.getText().toString().trim();
         String password = txtPassword.getText().toString().trim();
-        String confrimPassword = txtConfirmPassword.getText().toString().trim();
+        String confirmPassword = txtConfirmPassword.getText().toString().trim();
         String email = txtEmail.getText().toString().trim();
         String phone = txtPhone.getText().toString().trim();
 
-        if (fullName.isEmpty() || password.isEmpty() || confrimPassword.isEmpty() || email.isEmpty() || phone.isEmpty() || user_group.isEmpty() ){
+        if (fullName.isEmpty() || password.isEmpty() || confirmPassword.isEmpty() || email.isEmpty() || phone.isEmpty() || user_group.isEmpty() ){
             return true;
         }
         return false;
