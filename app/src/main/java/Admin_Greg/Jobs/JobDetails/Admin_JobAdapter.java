@@ -52,16 +52,46 @@ public class Admin_JobAdapter extends RecyclerView.Adapter<Admin_JobViewHolder> 
         holder.txtJobTitle.setText(job.getJob_title());
         holder.txtJobType.setText(job.getJob_type());
         holder.txtJobLocation.setText(job.getLocation());
-        holder.txtJobDate.setText(job.getDate_time());
-
-        if (job.getFee() != null) {
-            holder.txtJobFee.setText(String.format("$%.2f", job.getFee()));
-        } else {
-            holder.txtJobFee.setText("Fee not set");
-        }
-
         String status = job.getJob_status();
-        holder.txtJobStatus.setText(status != null ? status : "");
+        String resolvedStatus;
+        if (status != null) {
+            resolvedStatus = status;
+        } else {
+            resolvedStatus = "";
+        }
+        holder.txtJobStatus.setText(resolvedStatus);
+
+        boolean isJobActiveOrBeyond = status != null && (
+                status.equalsIgnoreCase("in_progress") || 
+                status.equalsIgnoreCase("in progress") || 
+                status.equalsIgnoreCase("work_completed") || 
+                status.equalsIgnoreCase("finished") || 
+                status.equalsIgnoreCase("closed")
+        );
+
+        if (isJobActiveOrBeyond) {
+            holder.layoutDateRow.setVisibility(View.VISIBLE);
+            holder.layoutFeeRow.setVisibility(View.VISIBLE);
+            holder.layoutGardenerRow.setVisibility(View.VISIBLE);
+
+            String jobDate;
+            if (job.getDate_time() != null) {
+                jobDate = job.getDate_time();
+            } else {
+                jobDate = "Not specified";
+            }
+            holder.txtJobDate.setText(jobDate);
+
+            if (job.getFee() != null) {
+                holder.txtJobFee.setText(String.format("$%.2f", job.getFee()));
+            } else {
+                holder.txtJobFee.setText("Fee not set");
+            }
+        } else {
+            holder.layoutDateRow.setVisibility(View.GONE);
+            holder.layoutFeeRow.setVisibility(View.GONE);
+            holder.layoutGardenerRow.setVisibility(View.GONE);
+        }
 
         holder.txtJobCustomer.setText("Loading...");
 

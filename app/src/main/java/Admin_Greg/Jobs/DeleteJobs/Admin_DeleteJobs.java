@@ -69,6 +69,7 @@ public class Admin_DeleteJobs extends AppCompatActivity {
         adapter.notifyDataSetChanged();
 
         db.collection("jobs")
+                .orderBy("job_title")
                 .get()
                 .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                     @Override

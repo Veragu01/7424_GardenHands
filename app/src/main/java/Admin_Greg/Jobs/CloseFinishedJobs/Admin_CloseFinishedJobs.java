@@ -68,6 +68,7 @@ public class Admin_CloseFinishedJobs extends AppCompatActivity {
         adapter.notifyDataSetChanged();
 
         db.collection("jobs")
+                .orderBy("date_time")
                 .get()
                 .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                     @Override

@@ -18,6 +18,9 @@ public class Admin_JobViewHolder extends RecyclerView.ViewHolder {
     TextView txtJobStatus;
     TextView txtJobCustomer;
     TextView txtJobGardener;
+    View layoutGardenerRow;
+    View layoutDateRow;
+    View layoutFeeRow;
 
     public Admin_JobViewHolder(@NonNull View itemView) {
         super(itemView);
@@ -30,5 +33,8 @@ public class Admin_JobViewHolder extends RecyclerView.ViewHolder {
         txtJobStatus = itemView.findViewById(R.id.txt_job_status);
         txtJobCustomer = itemView.findViewById(R.id.txt_job_customer);
         txtJobGardener = itemView.findViewById(R.id.txt_job_gardener);
+        layoutGardenerRow = itemView.findViewById(R.id.layout_job_gardener_row);
+        layoutDateRow = itemView.findViewById(R.id.layout_job_date_row);
+        layoutFeeRow = itemView.findViewById(R.id.layout_job_fee_row);
     }
 }

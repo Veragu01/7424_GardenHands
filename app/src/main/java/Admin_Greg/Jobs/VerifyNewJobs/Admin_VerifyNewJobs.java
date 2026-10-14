@@ -68,7 +68,10 @@ public class Admin_VerifyNewJobs extends AppCompatActivity {
         jobList.clear();
         adapter.notifyDataSetChanged();
 
-        db.collection("jobs").get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+        db.collection("jobs")
+                .orderBy("job_title")
+                .get()
+                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
             @Override
             public void onComplete(@NonNull Task<QuerySnapshot> task) {
                 if (task.isSuccessful()) {

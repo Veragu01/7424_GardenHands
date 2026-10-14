@@ -26,6 +26,8 @@ import com.google.firebase.firestore.QuerySnapshot;
 public class Admin_ViewSelectJob extends AppCompatActivity {
 
     EditText edit_jobcard_title, edit_jobcard_description, edit_jobcard_location, edit_jobcard_customer, edit_jobcard_gardener, edit_jobcard_status;
+    EditText edit_jobcard_type, edit_jobcard_size, edit_jobcard_date, edit_jobcard_fee;
+    View layout_jobcard_gardener_row, layout_jobcard_date_row, layout_jobcard_fee_row;
     TextView txt_jobcard_gardener;
 
     Button btn_jobcard_verify, btn_jobcard_deny, btn_jobcard_close, btn_jobcard_delete;
@@ -49,6 +51,15 @@ public class Admin_ViewSelectJob extends AppCompatActivity {
         txt_jobcard_gardener = findViewById(R.id.txt_jobcard_gardener);
         edit_jobcard_status = findViewById(R.id.edit_jobcard_status);
 
+        edit_jobcard_type = findViewById(R.id.edit_jobcard_type);
+        edit_jobcard_size = findViewById(R.id.edit_jobcard_size);
+        edit_jobcard_date = findViewById(R.id.edit_jobcard_date);
+        edit_jobcard_fee = findViewById(R.id.edit_jobcard_fee);
+
+        layout_jobcard_gardener_row = findViewById(R.id.layout_jobcard_gardener_row);
+        layout_jobcard_date_row = findViewById(R.id.layout_jobcard_date_row);
+        layout_jobcard_fee_row = findViewById(R.id.layout_jobcard_fee_row);
+
         btn_jobcard_verify = findViewById(R.id.btn_jobcard_verify);
         btn_jobcard_deny = findViewById(R.id.btn_jobcard_deny);
         btn_jobcard_close = findViewById(R.id.btn_jobcard_close);
@@ -62,13 +73,50 @@ public class Admin_ViewSelectJob extends AppCompatActivity {
         edit_jobcard_title.setText(getIntent().getStringExtra("job_title"));
         edit_jobcard_description.setText(getIntent().getStringExtra("job_description"));
         edit_jobcard_location.setText(getIntent().getStringExtra("location"));
+        edit_jobcard_type.setText(getIntent().getStringExtra("job_type"));
+        edit_jobcard_size.setText(getIntent().getStringExtra("size"));
 
         final String customerId = getIntent().getStringExtra("customer");
         final String gardenerId = getIntent().getStringExtra("gardener");
 
         loadUserNames(customerId, gardenerId);
 
-        edit_jobcard_status.setText(getIntent().getStringExtra("job_status"));
+        String jobStatus = getIntent().getStringExtra("job_status");
+        edit_jobcard_status.setText(jobStatus);
+
+        boolean isJobActiveOrBeyond = jobStatus != null && (
+                jobStatus.equalsIgnoreCase("in_progress") || 
+                jobStatus.equalsIgnoreCase("in progress") || 
+                jobStatus.equalsIgnoreCase("work_completed") || 
+                jobStatus.equalsIgnoreCase("finished") || 
+                jobStatus.equalsIgnoreCase("closed")
+        );
+
+        if (isJobActiveOrBeyond) {
+            layout_jobcard_gardener_row.setVisibility(View.VISIBLE);
+            layout_jobcard_date_row.setVisibility(View.VISIBLE);
+            layout_jobcard_fee_row.setVisibility(View.VISIBLE);
+
+            String dateTime = getIntent().getStringExtra("date_time");
+            String jobDate_time;
+            if (dateTime != null) {
+                jobDate_time = dateTime;
+            } else {
+                jobDate_time = "Not specified";
+            }
+            edit_jobcard_date.setText(jobDate_time);
+
+            if (getIntent().hasExtra("fee")) {
+                double fee = getIntent().getDoubleExtra("fee", 0.0);
+                edit_jobcard_fee.setText(String.format("$%.2f", fee));
+            } else {
+                edit_jobcard_fee.setText("Fee not set");
+            }
+        } else {
+            layout_jobcard_gardener_row.setVisibility(View.GONE);
+            layout_jobcard_date_row.setVisibility(View.GONE);
+            layout_jobcard_fee_row.setVisibility(View.GONE);
+        }
 
         edit_jobcard_title.setEnabled(false);
         edit_jobcard_description.setEnabled(false);
@@ -76,6 +124,10 @@ public class Admin_ViewSelectJob extends AppCompatActivity {
         edit_jobcard_customer.setEnabled(false);
         edit_jobcard_gardener.setEnabled(false);
         edit_jobcard_status.setEnabled(false);
+        edit_jobcard_type.setEnabled(false);
+        edit_jobcard_size.setEnabled(false);
+        edit_jobcard_date.setEnabled(false);
+        edit_jobcard_fee.setEnabled(false);
 
         btn_jobcard_verify.setVisibility(View.GONE);
         btn_jobcard_deny.setVisibility(View.GONE);
@@ -123,8 +175,19 @@ public class Admin_ViewSelectJob extends AppCompatActivity {
     }
 
     private void loadUserNames(final String customerId, final String gardenerId) {
-        final String trimmedCustId = customerId != null ? customerId.trim() : "";
-        final String trimmedGardId = gardenerId != null ? gardenerId.trim() : "";
+        String trimmedCustId;
+        if (customerId != null) {
+            trimmedCustId = customerId.trim();
+        } else {
+            trimmedCustId = "";
+        }
+
+        String trimmedGardId;
+        if (gardenerId != null) {
+            trimmedGardId = gardenerId.trim();
+        } else {
+            trimmedGardId = "";
+        }
 
 
         db.collection("users").get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
@@ -149,7 +212,13 @@ public class Admin_ViewSelectJob extends AppCompatActivity {
                         }
 
                         if (!trimmedCustId.isEmpty()) {
-                            edit_jobcard_customer.setText(customerName != null && !customerName.trim().isEmpty() ? customerName : trimmedCustId);
+                            String resolvedCustomerText;
+                            if (customerName != null && !customerName.trim().isEmpty()) {
+                                resolvedCustomerText = customerName;
+                            } else {
+                                resolvedCustomerText = trimmedCustId;
+                            }
+                            edit_jobcard_customer.setText(resolvedCustomerText);
                         } else {
                             edit_jobcard_customer.setText("No customer");
                         }
@@ -157,7 +226,13 @@ public class Admin_ViewSelectJob extends AppCompatActivity {
                         if (trimmedGardId.isEmpty()) {
                             edit_jobcard_gardener.setText("No gardener yet");
                         } else {
-                            edit_jobcard_gardener.setText(gardenerName != null && !gardenerName.trim().isEmpty() ? gardenerName : trimmedGardId);
+                            String resolvedGardenerText;
+                            if (gardenerName != null && !gardenerName.trim().isEmpty()) {
+                                resolvedGardenerText = gardenerName;
+                            } else {
+                                resolvedGardenerText = trimmedGardId;
+                            }
+                            edit_jobcard_gardener.setText(resolvedGardenerText);
                         }
                     }
                 });

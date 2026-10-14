@@ -8,16 +8,18 @@
     tools:context="Admin_Greg.Users.ViewSelectUser.Admin_ViewSelectUser"
     android:orientation="vertical"
     android:layout_gravity="center_horizontal"
+    android:background="@color/background_green"
     android:padding="16dp">
 
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="User"
+        android:text="User Details"
         android:textStyle="bold"
-        android:textSize="30dp"
+        android:textSize="24sp"
+        android:textColor="@color/black"
         android:textAlignment="center"
-        android:layout_marginBottom="30dp"/>
+        android:layout_marginBottom="24dp"/>
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -28,15 +30,16 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:text="Name:"
-            android:textSize="20sp"
+            android:textSize="18sp"
+            android:textColor="@color/black"
             android:textStyle="bold" />
         <EditText
             android:id="@+id/edit_usercard_name"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="2"
-            android:text="Name"
-            android:textSize="20sp"
+            android:textSize="18sp"
+            android:textColor="@color/black"
             android:inputType="none"
             android:enabled="false"/>
     </LinearLayout>
@@ -49,18 +52,19 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:layout_marginTop="4dp"
+                android:layout_marginTop="8dp"
                 android:text="User group:"
                 android:textStyle="bold"
-                android:textSize="20sp" />
+                android:textColor="@color/black"
+                android:textSize="18sp" />
             <EditText
                 android:id="@+id/edit_usercard_usergroup"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="2"
-                android:layout_marginTop="4dp"
-                android:text="User group"
-                android:textSize="20sp"
+                android:layout_marginTop="8dp"
+                android:textSize="18sp"
+                android:textColor="@color/black"
                 android:inputType="none"
                 android:enabled="false"/>
         </LinearLayout>
@@ -73,18 +77,19 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:layout_marginTop="6dp"
+                android:layout_marginTop="8dp"
                 android:text="Email:"
                 android:textStyle="bold"
-                android:textSize="20sp" />
+                android:textColor="@color/black"
+                android:textSize="18sp" />
             <EditText
                 android:id="@+id/edit_usercard_email"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="2"
-                android:layout_marginTop="6dp"
-                android:text="Email"
-                android:textSize="20sp"
+                android:layout_marginTop="8dp"
+                android:textSize="18sp"
+                android:textColor="@color/black"
                 android:inputType="none"
                 android:enabled="false"/>
         </LinearLayout>
@@ -98,18 +103,19 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:layout_marginTop="4dp"
+                android:layout_marginTop="8dp"
                 android:text="Phone:"
                 android:textStyle="bold"
-                android:textSize="20sp" />
+                android:textColor="@color/black"
+                android:textSize="18sp" />
             <EditText
                 android:id="@+id/edit_usercard_phone"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="2"
-                android:layout_marginTop="4dp"
-                android:text="Phone"
-                android:textSize="20sp"
+                android:layout_marginTop="8dp"
+                android:textSize="18sp"
+                android:textColor="@color/black"
                 android:inputType="none"
                 android:enabled="false"/>
 
@@ -122,18 +128,19 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:layout_marginTop="4dp"
+                android:layout_marginTop="8dp"
                 android:text="Authorised:"
                 android:textStyle="bold"
-                android:textSize="20sp" />
+                android:textColor="@color/black"
+                android:textSize="18sp" />
             <EditText
                 android:id="@+id/edit_usercard_authorised"
                 android:layout_width="0dp"
-                android:layout_weight="2"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="4dp"
-                android:text="Activated"
-                android:textSize="20sp"
+                android:layout_weight="2"
+                android:layout_marginTop="8dp"
+                android:textSize="18sp"
+                android:textColor="@color/black"
                 android:inputType="none"
                 android:enabled="false"
                 android:autofillHints="'true' or 'false'"/>
@@ -143,22 +150,27 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        android:layout_gravity="center">
+        android:layout_gravity="center"
+        android:layout_marginTop="24dp">
 
         <Button
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
+            android:layout_marginEnd="8dp"
             android:id="@+id/btn_usercard_edit"
             android:text="Edit Details"
-            android:layout_gravity="center" />
+            android:textColor="@color/off_white"
+            android:backgroundTint="@color/primary_green"/>
         <Button
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
+            android:layout_marginStart="8dp"
             android:id="@+id/btn_usercard_save"
             android:text="Save Changes"
-            android:layout_gravity="center"
+            android:textColor="@color/off_white"
+            android:backgroundTint="@color/primary_green"
             android:visibility="gone"/>
 
     </LinearLayout>
@@ -168,37 +180,48 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         android:layout_gravity="center"
-        android:layout_margin="50dp">
+        android:layout_marginTop="24dp">
         <Button
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
+            android:layout_marginEnd="4dp"
             android:id="@+id/btn_usercard_deactivate"
             android:text="DEACTIVATE USER"
-            android:backgroundTint="@android:color/holo_red_light"
+            android:textColor="@color/off_white"
+            android:backgroundTint="@color/red"
             android:visibility="gone"/>
         <Button
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
+            android:layout_marginStart="4dp"
+            android:layout_marginEnd="4dp"
             android:id="@+id/btn_usercard_activate"
             android:text="ACTIVATE USER"
-            android:backgroundTint="@android:color/holo_green_light"
+            android:textColor="@color/off_white"
+            android:backgroundTint="@color/primary_green"
             android:visibility="gone"/>
         <Button
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
+            android:layout_marginStart="4dp"
+            android:layout_marginEnd="4dp"
             android:id="@+id/btn_usercard_deactivate_confirm"
             android:text="CONFIRM"
-            android:visibility="gone"
-            android:backgroundTint="@android:color/holo_red_light" />
+            android:textColor="@color/off_white"
+            android:backgroundTint="@color/red"
+            android:visibility="gone"/>
         <Button
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
+            android:layout_marginStart="4dp"
             android:id="@+id/btn_usercard_deactivate_cancel"
             android:text="CANCEL"
+            android:textColor="@color/off_white"
+            android:backgroundTint="@color/dark_grey"
             android:visibility="gone"/>
     </LinearLayout>
 

@@ -76,7 +76,6 @@ public class Admin_CreateNewUser extends AppCompatActivity {
             public void onClick(View v) {
                 rbGardener.setChecked(false);
                 rbCustomer.setChecked(true);
-                Toast.makeText(getApplicationContext(), "test 1", Toast.LENGTH_SHORT).show();
                 user_group = "Customers";
                 authorised = "true";
             }
@@ -87,7 +86,6 @@ public class Admin_CreateNewUser extends AppCompatActivity {
             public void onClick(View v) {
                 rbGardener.setChecked(true);
                 rbCustomer.setChecked(false);
-                Toast.makeText(getApplicationContext(), "test 2", Toast.LENGTH_SHORT).show();
                 user_group = "Gardeners";
                 authorised = "true";
             }
