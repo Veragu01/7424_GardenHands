@@ -22,7 +22,7 @@
         />
 
     <Button
-        android:id="@+id/btnGDashViewJobs"
+        android:id="@+id/btnCDashCreateJob"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Create Job"
@@ -33,7 +33,7 @@
         android:backgroundTint="@color/primary_green"
         />
     <Button
-        android:id="@+id/btnGDashMyJobs"
+        android:id="@+id/btnCDashMyJobs"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="My Jobs"
@@ -45,7 +45,7 @@
         />
 
     <Button
-        android:id="@+id/btnGDashMyProfile"
+        android:id="@+id/btnCDashMyProfile"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="My Profile"
