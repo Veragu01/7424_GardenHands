@@ -39,6 +39,8 @@ import java.util.Calendar;
 import java.util.HashMap;
 import java.util.Map;
 
+import Gardener_Uly.Gardener_Dashboard;
+
 public class Gardener_ProvideQuote extends AppCompatActivity {
 
     DatePicker dpCalendarSpinner;
@@ -282,7 +284,12 @@ public class Gardener_ProvideQuote extends AppCompatActivity {
             public void onComplete(@NonNull Task<Void> task) {
                 if (task.isSuccessful()) {
                     Toast.makeText(getApplicationContext(), "Success: Quote Sent", Toast.LENGTH_LONG).show();
+                    Intent intent = new Intent(getApplicationContext(), Gardener_Dashboard.class);
+                    intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                    startActivity(intent);
+
                     finish();
+
                 }
             }
         });
