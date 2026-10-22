@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="job_types_array">
+        <item>Gardening</item>
+        <item>Mowing</item>
+        <item>Planting</item>
+        <item>Cleaning</item>
+        <item>Other</item>
+    </string-array>
+</resources>

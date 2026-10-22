@@ -1,0 +1,182 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="Customer_Aidan.Customer_Create_Job"
+    android:orientation="vertical"
+    android:gravity="center_horizontal"
+    android:paddingTop="45dp"
+    android:background="@color/background_green">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Create a New Job"
+        android:textStyle="bold"
+        android:textSize="20sp"/>
+
+    <!-- Title -->
+    <LinearLayout
+        android:layout_marginTop="10dp"
+        android:paddingHorizontal="10dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="10dp"
+            android:layout_weight="2"
+            android:text="Title:"
+            android:textAlignment="textEnd" />
+
+        <EditText
+            android:id="@+id/txtJobTitle"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="3"
+            android:backgroundTint="@color/primary_green"
+            android:hint="enter job title"
+            android:inputType="textCapWords"
+            android:textAlignment="textStart" />
+    </LinearLayout>
+
+    <!-- Description -->
+    <LinearLayout
+        android:layout_marginTop="10dp"
+        android:paddingHorizontal="10dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="10dp"
+            android:layout_weight="2"
+            android:text="Description:"
+            android:textAlignment="textEnd" />
+
+        <EditText
+            android:id="@+id/txtJobDescription"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="3"
+            android:backgroundTint="@color/primary_green"
+            android:hint="enter job description"
+            android:inputType="textMultiLine"
+            android:textAlignment="textStart" />
+    </LinearLayout>
+
+    <!-- Job Type -->
+    <LinearLayout
+        android:layout_marginTop="10dp"
+        android:paddingHorizontal="10dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center_vertical">
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="10dp"
+            android:layout_weight="2"
+            android:text="Job Type:"
+            android:textAlignment="textEnd" />
+
+        <Spinner
+            android:id="@+id/spinnerJobType"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="3"
+            android:backgroundTint="@color/primary_green"
+            android:minHeight="48dp"
+            android:entries="@array/job_types_array" />
+    </LinearLayout>
+
+    <!-- Location -->
+    <LinearLayout
+        android:layout_marginTop="10dp"
+        android:paddingHorizontal="10dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="10dp"
+            android:layout_weight="2"
+            android:text="Location:"
+            android:textAlignment="textEnd" />
+
+        <EditText
+            android:id="@+id/txtJobLocation"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="3"
+            android:backgroundTint="@color/primary_green"
+            android:hint="enter location"
+            android:inputType="text"
+            android:textAlignment="textStart" />
+    </LinearLayout>
+
+    <!-- Size -->
+    <LinearLayout
+        android:layout_marginTop="10dp"
+        android:paddingHorizontal="10dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="10dp"
+            android:layout_weight="2"
+            android:text="Size:"
+            android:textAlignment="textEnd" />
+
+        <EditText
+            android:id="@+id/txtJobSize"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="3"
+            android:backgroundTint="@color/primary_green"
+            android:hint="choose job size"
+            android:inputType="text"
+            android:textAlignment="textStart" />
+    </LinearLayout>
+
+    <!-- Action Buttons -->
+    <LinearLayout
+        android:layout_marginTop="15dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/btnCreateJob"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="10dp"
+            android:layout_weight="1"
+            android:backgroundTint="@color/primary_green"
+            android:text="Create new job" />
+
+        <Button
+            android:id="@+id/btnCCancelNewJob"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="10dp"
+            android:layout_weight="1"
+            android:backgroundTint="@color/primary_green"
+            android:text="Cancel" />
+    </LinearLayout>
+
+</LinearLayout>

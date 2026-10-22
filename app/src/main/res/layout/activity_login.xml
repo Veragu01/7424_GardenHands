@@ -5,7 +5,9 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:gravity="center"
+    android:paddingTop="45dp"
+    android:background="@color/background_green"
+    android:gravity="center_horizontal"
     android:orientation="vertical"
     android:paddingHorizontal="20dp"
     tools:context=".LoginActivity">
@@ -15,24 +17,29 @@
         android:layout_height="wrap_content"
         android:text="Login"
         android:textSize="20sp"
-        android:textStyle="bold" />
+        android:textStyle="bold"
+        android:layout_marginBottom="10dp"/>
 
     <EditText
         android:id="@+id/txtLoginEmail"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
+        android:backgroundTint="@color/primary_green"
         android:hint="Email"
-        android:textAlignment="center" />
+        android:textAlignment="textStart"
+        android:layout_marginBottom="10dp" />
 
     <EditText
         android:id="@+id/txtLoginPassword"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
+        android:backgroundTint="@color/primary_green"
         android:hint="Password"
         android:inputType="textPassword"
-        android:textAlignment="center" />
+        android:textAlignment="textStart"
+        android:layout_marginBottom="10dp"/>
 
     <Button
         android:id="@+id/btnLogin"
@@ -40,7 +47,9 @@
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="10dp"
         android:layout_marginTop="10dp"
-        android:text="Login" />
+        android:backgroundTint="@color/primary_green"
+        android:text="Login"
+        android:layout_marginBottom="5dp"/>
 
 
     <TextView
