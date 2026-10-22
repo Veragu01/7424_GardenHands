@@ -1,5 +1,6 @@
 package Customer_Aidan;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.widget.Button;
 import android.widget.TextView;
@@ -12,14 +13,16 @@ import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
 import com.AGU.gardenhands.R;
+import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.util.HashMap;
+import java.util.Locale;
 import java.util.Map;
 
 public class Customer_Quote_Details extends AppCompatActivity {
 
-    private TextView txtDetailGardenerName, txtDetailFee, txtDetailTimeslot, txtDetailStatus, txtDetailNotes;
+    private TextView txtDetailGardenerName, txtDetailFee, txtDetailTimeslot, txtDetailNotes;
     private Button btnPickQuote, btnBack;
 
     private FirebaseFirestore db;
@@ -27,10 +30,12 @@ public class Customer_Quote_Details extends AppCompatActivity {
     private String quoteId;
     private String gardenerId;
     private String gardenerName;
-    private String fee;
+    private Double fee;
+    private String timeslotId;
+    private String date;
+    private String session;
     private String timeslot;
     private String notes;
-    private String status;
     private String jobId;
 
     @Override
@@ -49,7 +54,6 @@ public class Customer_Quote_Details extends AppCompatActivity {
         txtDetailGardenerName = findViewById(R.id.txtDetailGardenerName);
         txtDetailFee = findViewById(R.id.txtDetailFee);
         txtDetailTimeslot = findViewById(R.id.txtDetailTimeslot);
-        txtDetailStatus = findViewById(R.id.txtDetailStatus);
         txtDetailNotes = findViewById(R.id.txtDetailNotes);
         btnPickQuote = findViewById(R.id.btnPickQuote);
         btnBack = findViewById(R.id.btnBack);
@@ -67,27 +71,43 @@ public class Customer_Quote_Details extends AppCompatActivity {
                 quoteId = quote.getQuoteId();
                 gardenerId = quote.getGardenerId();
                 gardenerName = quote.getGardenerName();
-                fee = quote.getFee();
+                fee = parseDoubleSafely(quote.getFee());
+                timeslotId = quote.getTimeslotId();
+                date = quote.getDate();
+                session = quote.getSession();
                 timeslot = quote.getTimeslot();
                 notes = quote.getNotes();
-                status = quote.getStatus();
                 jobId = quote.getJobId();
             } else {
                 quoteId = getIntent().getStringExtra("quote_id");
                 gardenerId = getIntent().getStringExtra("gardener_id");
                 gardenerName = getIntent().getStringExtra("gardener_name");
-                fee = getIntent().getStringExtra("fee");
+                fee = parseDoubleSafely(getIntent().getStringExtra("fee"));
+                timeslotId = getIntent().getStringExtra("timeslot_id");
+                date = getIntent().getStringExtra("date");
+                session = getIntent().getStringExtra("session");
                 timeslot = getIntent().getStringExtra("timeslot");
                 notes = getIntent().getStringExtra("notes");
-                status = getIntent().getStringExtra("status");
                 jobId = getIntent().getStringExtra("job_id");
             }
         }
 
         displayQuoteDetails();
+        fetchTimeslotDetailsIfNeeded();
 
         btnPickQuote.setOnClickListener(v -> pickQuote());
         btnBack.setOnClickListener(v -> finish());
+    }
+
+    private Double parseDoubleSafely(String value) {
+        if (value == null) return 0.0;
+        try {
+            String cleaned = value.replaceAll("[^0-9.]", "");
+            if (cleaned.isEmpty()) return 0.0;
+            return Double.parseDouble(cleaned);
+        } catch (Exception e) {
+            return 0.0;
+        }
     }
 
     private void displayQuoteDetails() {
@@ -97,24 +117,86 @@ public class Customer_Quote_Details extends AppCompatActivity {
         }
         txtDetailGardenerName.setText(displayName);
 
-        String feeStr = fee;
-        if (feeStr != null && !feeStr.startsWith("$")) {
-            feeStr = "$" + feeStr;
+        if (fee != null) {
+            txtDetailFee.setText(String.format(Locale.getDefault(), "$%.2f", fee));
+        } else {
+            txtDetailFee.setText("$0.00");
         }
-        txtDetailFee.setText(feeStr != null ? feeStr : "$0.00");
 
-        txtDetailTimeslot.setText(timeslot != null ? timeslot : "N/A");
-
-        String displayStatus = status != null ? status : "Pending";
-        txtDetailStatus.setText(displayStatus);
+        updateTimeslotDisplay();
 
         txtDetailNotes.setText(notes != null && !notes.trim().isEmpty() ? notes : "No additional notes provided.");
+    }
 
-        if ("Accepted".equalsIgnoreCase(displayStatus) || "Picked".equalsIgnoreCase(displayStatus)) {
-            btnPickQuote.setText("Quote Accepted");
-            btnPickQuote.setEnabled(false);
-            btnPickQuote.setAlpha(0.6f);
+    private void updateTimeslotDisplay() {
+        StringBuilder sb = new StringBuilder();
+        if (date != null && !date.trim().isEmpty() && !"N/A".equalsIgnoreCase(date)) {
+            sb.append("Date: ").append(date);
         }
+        if (session != null && !session.trim().isEmpty() && !"N/A".equalsIgnoreCase(session)) {
+            if (sb.length() > 0) sb.append("\n");
+            sb.append("Session: ").append(session);
+        }
+        if (sb.length() == 0) {
+            if (timeslot != null && !timeslot.trim().isEmpty()) {
+                sb.append(timeslot);
+            } else {
+                sb.append("N/A");
+            }
+        }
+        txtDetailTimeslot.setText(sb.toString());
+    }
+
+    private void fetchTimeslotDetailsIfNeeded() {
+        if (date != null && !date.trim().isEmpty() && session != null && !session.trim().isEmpty()) {
+            return;
+        }
+
+        String tsId = timeslotId;
+        if (tsId == null || tsId.trim().isEmpty() || "N/A".equalsIgnoreCase(tsId)) {
+            tsId = timeslot;
+        }
+        if (tsId == null || tsId.trim().isEmpty() || "N/A".equalsIgnoreCase(tsId)) {
+            return;
+        }
+
+        String finalTsId = tsId;
+        db.collection("timeslots").document(finalTsId).get()
+                .addOnCompleteListener(task -> {
+                    boolean found = false;
+                    if (task.isSuccessful() && task.getResult() != null && task.getResult().exists()) {
+                        applyTimeslotDoc(task.getResult());
+                        found = true;
+                    }
+                    if (!found) {
+                        db.collection("time_slots").document(finalTsId).get()
+                                .addOnCompleteListener(fallbackTask -> {
+                                    if (fallbackTask.isSuccessful() && fallbackTask.getResult() != null && fallbackTask.getResult().exists()) {
+                                        applyTimeslotDoc(fallbackTask.getResult());
+                                    }
+                                });
+                    }
+                });
+    }
+
+    private void applyTimeslotDoc(DocumentSnapshot tsDoc) {
+        Object dateObj = tsDoc.get("date");
+        if (dateObj == null) dateObj = tsDoc.get("date_time");
+        if (dateObj == null) dateObj = tsDoc.get("dateTime");
+        if (dateObj == null) dateObj = tsDoc.get("day");
+
+        Object sessionObj = tsDoc.get("session");
+        if (sessionObj == null) sessionObj = tsDoc.get("session_time");
+        if (sessionObj == null) sessionObj = tsDoc.get("slot");
+        if (sessionObj == null) sessionObj = tsDoc.get("time");
+
+        if (dateObj != null) {
+            this.date = String.valueOf(dateObj);
+        }
+        if (sessionObj != null) {
+            this.session = String.valueOf(sessionObj);
+        }
+        updateTimeslotDisplay();
     }
 
     private void pickQuote() {
@@ -126,8 +208,6 @@ public class Customer_Quote_Details extends AppCompatActivity {
         btnPickQuote.setEnabled(false);
 
         Map<String, Object> quoteUpdates = new HashMap<>();
-        quoteUpdates.put("status", "Accepted");
-        quoteUpdates.put("quote_status", "Accepted");
 
         db.collection("quotes").document(quoteId)
                 .update(quoteUpdates)
@@ -135,8 +215,11 @@ public class Customer_Quote_Details extends AppCompatActivity {
                     // Update job if jobId is available
                     if (jobId != null && !jobId.isEmpty()) {
                         Map<String, Object> jobUpdates = new HashMap<>();
-                        jobUpdates.put("job_status", "Assigned");
+                        jobUpdates.put("job_status", "in_progress");
                         if (gardenerId != null) {
+                            jobUpdates.put("fee", fee);
+                            String timeValue = (date != null && session != null) ? (date + " (" + session + ")") : (timeslot != null ? timeslot : "");
+                            jobUpdates.put("date_time", date);
                             jobUpdates.put("gardener", gardenerId);
                         }
                         if (fee != null) {
@@ -146,7 +229,6 @@ public class Customer_Quote_Details extends AppCompatActivity {
                     }
 
                     Toast.makeText(Customer_Quote_Details.this, "Quote picked successfully!", Toast.LENGTH_SHORT).show();
-                    txtDetailStatus.setText("Accepted");
                     btnPickQuote.setText("Quote Accepted");
                     btnPickQuote.setAlpha(0.6f);
                 })
@@ -154,5 +236,8 @@ public class Customer_Quote_Details extends AppCompatActivity {
                     btnPickQuote.setEnabled(true);
                     Toast.makeText(Customer_Quote_Details.this, "Failed to pick quote: " + e.getMessage(), Toast.LENGTH_SHORT).show();
                 });
+        Intent intent = new Intent(Customer_Quote_Details.this, Customer_Dashboard.class);
+        startActivity(intent);
+        finish();
     }
 }

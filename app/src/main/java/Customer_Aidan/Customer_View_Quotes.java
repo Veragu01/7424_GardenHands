@@ -53,8 +53,22 @@ public class Customer_View_Quotes extends AppCompatActivity implements QuoteAdap
 
         if (getIntent() != null) {
             targetJobId = getIntent().getStringExtra("job_id");
-            if (targetJobId == null) {
-                targetJobId = getIntent().getStringExtra("jobId");
+            if (targetJobId == null || targetJobId.trim().isEmpty()) {
+                targetJobId = getIntent().getStringExtra("jobID");
+            }
+            if (targetJobId == null || targetJobId.trim().isEmpty()) {
+                targetJobId = getIntent().getStringExtra("job");
+            }
+            if (targetJobId == null || targetJobId.trim().isEmpty()) {
+                Job jobObj;
+                if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.TIRAMISU) {
+                    jobObj = getIntent().getSerializableExtra("job", Job.class);
+                } else {
+                    jobObj = (Job) getIntent().getSerializableExtra("job");
+                }
+                if (jobObj != null) {
+                    targetJobId = jobObj.getJobId();
+                }
             }
         }
 
@@ -109,9 +123,10 @@ public class Customer_View_Quotes extends AppCompatActivity implements QuoteAdap
                             Quote quote = Quote.fromDocument(document);
 
                             // Check if this quote belongs to the target job
-                            if (targetJobId.equals(quote.getJobId())) {
+                            if (isQuoteForJob(targetJobId, quote, document)) {
                                 quoteList.add(quote);
                                 fetchGardenerNameIfNeeded(quote);
+                                fetchTimeslotDetailsIfNeeded(quote);
                             }
                         }
 
@@ -129,6 +144,92 @@ public class Customer_View_Quotes extends AppCompatActivity implements QuoteAdap
                         Toast.makeText(Customer_View_Quotes.this, "Error fetching quotes", Toast.LENGTH_SHORT).show();
                     }
                 });
+    }
+
+    private void fetchTimeslotDetailsIfNeeded(Quote quote) {
+        String tsId = quote.getTimeslotId();
+        if (tsId == null || tsId.trim().isEmpty() || "N/A".equalsIgnoreCase(tsId)) {
+            tsId = quote.getTimeslot();
+        }
+        if (tsId == null || tsId.trim().isEmpty() || "N/A".equalsIgnoreCase(tsId)) {
+            return;
+        }
+
+        if (quote.getDate() != null && !quote.getDate().trim().isEmpty()
+                && quote.getSession() != null && !quote.getSession().trim().isEmpty()) {
+            return;
+        }
+
+        String finalTsId = tsId;
+        db.collection("timeslots").document(finalTsId).get()
+                .addOnCompleteListener(task -> {
+                    boolean found = false;
+                    if (task.isSuccessful() && task.getResult() != null && task.getResult().exists()) {
+                        applyTimeslotDocToQuote(quote, task.getResult());
+                        found = true;
+                    }
+                    if (!found) {
+                        db.collection("time_slots").document(finalTsId).get()
+                                .addOnCompleteListener(fallbackTask -> {
+                                    if (fallbackTask.isSuccessful() && fallbackTask.getResult() != null && fallbackTask.getResult().exists()) {
+                                        applyTimeslotDocToQuote(quote, fallbackTask.getResult());
+                                    }
+                                });
+                    }
+                });
+    }
+
+    private void applyTimeslotDocToQuote(Quote quote, DocumentSnapshot tsDoc) {
+        Object dateObj = tsDoc.get("date");
+        if (dateObj == null) dateObj = tsDoc.get("date");
+
+        Object sessionObj = tsDoc.get("session");
+        if (sessionObj == null) sessionObj = tsDoc.get("session");
+
+        if (dateObj != null) {
+            quote.setDate(String.valueOf(dateObj));
+        }
+        if (sessionObj != null) {
+            quote.setSession(String.valueOf(sessionObj));
+        }
+        quoteAdapter.notifyDataSetChanged();
+    }
+
+    private boolean isQuoteForJob(String targetJobId, Quote quote, DocumentSnapshot doc) {
+        if (targetJobId == null || targetJobId.trim().isEmpty()) return false;
+
+        // 1. Check quote's jobId field parsed from document
+        if (quote.getJobId() != null && isJobIdMatch(targetJobId, quote.getJobId())) {
+            return true;
+        }
+
+        // 2. Check document ID in case document ID is the jobId or starts with jobId
+        if (doc != null && doc.getId() != null) {
+            String docId = doc.getId();
+            if (isJobIdMatch(targetJobId, docId)) {
+                return true;
+            }
+            if (docId.startsWith(targetJobId.trim() + "_") || docId.startsWith(targetJobId.trim() + "-")) {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    private boolean isJobIdMatch(String target, String actual) {
+        if (target == null || actual == null) return false;
+        String t = target.trim();
+        String a = actual.trim();
+        if (t.equalsIgnoreCase(a)) return true;
+
+        if (t.contains("/")) {
+            t = t.substring(t.lastIndexOf('/') + 1);
+        }
+        if (a.contains("/")) {
+            a = a.substring(a.lastIndexOf('/') + 1);
+        }
+        return t.equalsIgnoreCase(a);
     }
 
     private void fetchGardenerNameIfNeeded(Quote quote) {
@@ -161,9 +262,11 @@ public class Customer_View_Quotes extends AppCompatActivity implements QuoteAdap
         intent.putExtra("gardener_id", quote.getGardenerId());
         intent.putExtra("gardener_name", quote.getGardenerName());
         intent.putExtra("fee", quote.getFee());
+        intent.putExtra("timeslot_id", quote.getTimeslotId());
+        intent.putExtra("date", quote.getDate());
+        intent.putExtra("session", quote.getSession());
         intent.putExtra("timeslot", quote.getTimeslot());
         intent.putExtra("notes", quote.getNotes());
-        intent.putExtra("status", quote.getStatus());
         intent.putExtra("job_id", quote.getJobId());
         startActivity(intent);
     }

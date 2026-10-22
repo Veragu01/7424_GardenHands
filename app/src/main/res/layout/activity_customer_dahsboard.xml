@@ -45,6 +45,17 @@
         />
 
     <Button
+        android:id="@+id/btnCDashCompletedJobs"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="24sp"
+        android:layout_marginBottom="16sp"
+        android:backgroundTint="@color/primary_green"
+        android:text="Completed Jobs"
+        android:textColor="@color/off_white"
+        android:textSize="16sp" />
+
+    <Button
         android:id="@+id/btnCDashMyProfile"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

@@ -7,8 +7,10 @@ import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.OpenableColumns;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -38,9 +40,9 @@ import java.util.Map;
 
 public class Customer_Create_Job extends AppCompatActivity {
 
-    private TextView txtFileName;
-    private EditText txtJobDateTime, txtJobFee, txtJobTitle, txtJobDescription, txtJobType, txtJobLocation, txtJobSize;
-    private Button btnPickFile, btnCreateJob, btnCcancelNewJob;
+    private EditText txtJobTitle, txtJobDescription, txtJobLocation, txtJobSize;
+    private Spinner spinnerJobType;
+    private Button btnCreateJob, btnCcancelNewJob;
 
     private Uri selectedFileUri = null;
 
@@ -61,22 +63,19 @@ public class Customer_Create_Job extends AppCompatActivity {
         mAuth = FirebaseAuth.getInstance();
         db = FirebaseFirestore.getInstance();
 
-        txtFileName = findViewById(R.id.txtFileName);
-        txtJobDateTime = findViewById(R.id.txtJobDateTime);
-        txtJobFee = findViewById(R.id.txtJobFee);
         txtJobTitle = findViewById(R.id.txtJobTitle);
         txtJobDescription = findViewById(R.id.txtJobDescription);
-        txtJobType = findViewById(R.id.txtJobType);
+        spinnerJobType = findViewById(R.id.spinnerJobType);
         txtJobLocation = findViewById(R.id.txtJobLocation);
         txtJobSize = findViewById(R.id.txtJobSize);
 
-        btnPickFile = findViewById(R.id.btnPickFile);
+        String[] jobTypes = {"Gardening", "Mowing", "Planting", "Cleaning", "Other"};
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, jobTypes);
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spinnerJobType.setAdapter(adapter);
+
         btnCreateJob = findViewById(R.id.btnCreateJob);
         btnCcancelNewJob = findViewById(R.id.btnCCancelNewJob);
-
-        btnPickFile.setOnClickListener(v -> filePickerLauncher.launch("image/*"));
-
-        txtJobDateTime.setOnClickListener(v -> showDateTimePicker(txtJobDateTime));
 
         btnCreateJob.setOnClickListener(v -> createNewJob());
 
@@ -85,58 +84,6 @@ public class Customer_Create_Job extends AppCompatActivity {
             startActivity(intent);
             finish();
         });
-    }
-
-    private final ActivityResultLauncher<String> filePickerLauncher = registerForActivityResult(
-            new ActivityResultContracts.GetContent(),
-            uri -> {
-                if (uri != null) {
-                    selectedFileUri = uri;
-                    txtFileName.setText(getFileName(uri));
-                }
-            }
-    );
-
-    private void showDateTimePicker(EditText editText) {
-        final Calendar calendar = Calendar.getInstance();
-
-        String currentText = editText.getText().toString().trim();
-        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm", Locale.getDefault());
-        if (!currentText.isEmpty()) {
-            try {
-                Date date = sdf.parse(currentText);
-                if (date != null) {
-                    calendar.setTime(date);
-                }
-            } catch (Exception ignored) {
-            }
-        }
-
-        DatePickerDialog datePickerDialog = new DatePickerDialog(
-                this,
-                (view, year, month, dayOfMonth) -> {
-                    calendar.set(Calendar.YEAR, year);
-                    calendar.set(Calendar.MONTH, month);
-                    calendar.set(Calendar.DAY_OF_MONTH, dayOfMonth);
-
-                    TimePickerDialog timePickerDialog = new TimePickerDialog(
-                            this,
-                            (timeView, hourOfDay, minute) -> {
-                                calendar.set(Calendar.HOUR_OF_DAY, hourOfDay);
-                                calendar.set(Calendar.MINUTE, minute);
-                                editText.setText(sdf.format(calendar.getTime()));
-                            },
-                            calendar.get(Calendar.HOUR_OF_DAY),
-                            calendar.get(Calendar.MINUTE),
-                            true
-                    );
-                    timePickerDialog.show();
-                },
-                calendar.get(Calendar.YEAR),
-                calendar.get(Calendar.MONTH),
-                calendar.get(Calendar.DAY_OF_MONTH)
-        );
-        datePickerDialog.show();
     }
 
     private String getFileName(Uri uri) {
@@ -175,28 +122,24 @@ public class Customer_Create_Job extends AppCompatActivity {
         }
 
         String customerId = currentUser.getUid();
-        String dateTime = txtJobDateTime.getText().toString().trim();
-        String fee = txtJobFee.getText().toString().trim();
         String title = txtJobTitle.getText().toString().trim();
         String description = txtJobDescription.getText().toString().trim();
-        String type = txtJobType.getText().toString().trim();
+        String type = spinnerJobType.getSelectedItem() != null ? spinnerJobType.getSelectedItem().toString() : "";
         String location = txtJobLocation.getText().toString().trim();
         String size = txtJobSize.getText().toString().trim();
-        String beforePic = selectedFileUri != null ? getFileName(selectedFileUri) : "";
 
-        if (dateTime.isEmpty() || fee.isEmpty() || title.isEmpty() || description.isEmpty() || type.isEmpty() || location.isEmpty() || size.isEmpty()) {
+        if (title.isEmpty() || description.isEmpty() || type.isEmpty() || location.isEmpty() || size.isEmpty()) {
             Toast.makeText(this, "Please fill in all job details", Toast.LENGTH_SHORT).show();
             return;
         }
 
         Map<String, Object> newJob = new LinkedHashMap<>();
-        newJob.put("before_pic", beforePic);
         newJob.put("customer", customerId);
-        newJob.put("date_time", dateTime);
-        newJob.put("fee", fee);
+        newJob.put("date_time", null);
+        newJob.put("fee", null);
         newJob.put("gardener", "");
         newJob.put("job_description", description);
-        newJob.put("job_status", "Open");
+        newJob.put("job_status", "pending");
         newJob.put("job_title", title);
         newJob.put("job_type", type);
         newJob.put("location", location);

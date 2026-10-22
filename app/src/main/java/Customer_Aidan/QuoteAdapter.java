@@ -77,10 +77,10 @@ public class QuoteAdapter extends RecyclerView.Adapter<QuoteAdapter.QuoteViewHol
             }
             txtQuoteFee.setText(feeStr != null ? feeStr : "$0.00");
 
-            txtQuoteTimeslot.setText(quote.getTimeslot() != null ? quote.getTimeslot() : "N/A");
+            txtQuoteTimeslot.setText(quote.getFormattedTimeslot());
 
             String status = quote.getStatus();
-            txtQuoteStatus.setText(status != null ? status : "Pending");
+            txtQuoteStatus.setText(status != null ? status : "");
 
             itemView.setOnClickListener(v -> {
                 if (listener != null) {

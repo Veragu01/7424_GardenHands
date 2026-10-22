@@ -1,8 +1,10 @@
 package Customer_Aidan;
 
+import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 
 import java.io.Serializable;
+import java.util.Map;
 
 public class Quote implements Serializable {
     private String quoteId;
@@ -10,6 +12,9 @@ public class Quote implements Serializable {
     private String gardenerId;
     private String gardenerName;
     private String fee;
+    private String timeslotId;
+    private String date;
+    private String session;
     private String timeslot;
     private String notes;
     private String jobId;
@@ -19,99 +24,154 @@ public class Quote implements Serializable {
     }
 
     public Quote(String quoteId, String customerId, String gardenerId, String gardenerName,
-                 String fee, String timeslot, String notes, String jobId, String status) {
+                 String fee, String timeslotId, String date, String session, String timeslot,
+                 String notes, String jobId, String status) {
         this.quoteId = quoteId;
         this.customerId = customerId;
         this.gardenerId = gardenerId;
         this.gardenerName = gardenerName;
         this.fee = fee;
+        this.timeslotId = timeslotId;
+        this.date = date;
+        this.session = session;
         this.timeslot = timeslot;
         this.notes = notes;
         this.jobId = jobId;
         this.status = status;
     }
 
+    private static Object getValueCaseInsensitive(Map<String, Object> data, String... keys) {
+        if (data == null) return null;
+        for (String key : keys) {
+            if (data.containsKey(key) && data.get(key) != null) {
+                return data.get(key);
+            }
+            for (Map.Entry<String, Object> entry : data.entrySet()) {
+                if (entry.getKey().equalsIgnoreCase(key) && entry.getValue() != null) {
+                    return entry.getValue();
+                }
+            }
+        }
+        return null;
+    }
+
     public static Quote fromDocument(DocumentSnapshot doc) {
         Quote q = new Quote();
         q.setQuoteId(doc.getId());
 
+        Map<String, Object> data = doc.getData();
+
         // Customer ID
-        if (doc.contains("customer")) {
-            q.setCustomerId(doc.getString("customer"));
-        } else if (doc.contains("customer_id")) {
-            q.setCustomerId(doc.getString("customer_id"));
-        } else if (doc.contains("customerId")) {
-            q.setCustomerId(doc.getString("customerId"));
+        Object customerObj = getValueCaseInsensitive(data, "customer", "customer_id", "customerId", "customerID");
+        if (customerObj instanceof DocumentReference) {
+            q.setCustomerId(((DocumentReference) customerObj).getId());
+        } else if (customerObj != null) {
+            q.setCustomerId(String.valueOf(customerObj));
         }
 
         // Gardener ID
-        if (doc.contains("gardener")) {
-            q.setGardenerId(doc.getString("gardener"));
-        } else if (doc.contains("gardener_id")) {
-            q.setGardenerId(doc.getString("gardener_id"));
-        } else if (doc.contains("gardenerId")) {
-            q.setGardenerId(doc.getString("gardenerId"));
+        Object gardenerObj = getValueCaseInsensitive(data, "gardener", "gardener_id", "gardenerId", "gardenerID");
+        if (gardenerObj instanceof DocumentReference) {
+            q.setGardenerId(((DocumentReference) gardenerObj).getId());
+        } else if (gardenerObj != null) {
+            q.setGardenerId(String.valueOf(gardenerObj));
         }
 
         // Gardener Name
-        if (doc.contains("gardener_name")) {
-            q.setGardenerName(doc.getString("gardener_name"));
-        } else if (doc.contains("gardenerName")) {
-            q.setGardenerName(doc.getString("gardenerName"));
+        Object gardenerNameObj = getValueCaseInsensitive(data, "gardener_name", "gardenerName", "gardenerNAME", "name");
+        if (gardenerNameObj != null) {
+            q.setGardenerName(String.valueOf(gardenerNameObj));
         }
 
         // Fee / Price
-        if (doc.get("fee") != null) {
-            q.setFee(String.valueOf(doc.get("fee")));
-        } else if (doc.get("price") != null) {
-            q.setFee(String.valueOf(doc.get("price")));
+        Object feeObj = getValueCaseInsensitive(data, "fee", "price", "amount", "cost", "quote_fee");
+        if (feeObj != null) {
+            q.setFee(String.valueOf(feeObj));
         } else {
             q.setFee("0.00");
         }
 
-        // Timeslot / Date/Time
-        if (doc.contains("timeslot")) {
-            q.setTimeslot(doc.getString("timeslot"));
-        } else if (doc.contains("time_slot")) {
-            q.setTimeslot(doc.getString("time_slot"));
-        } else if (doc.contains("date_time")) {
-            q.setTimeslot(doc.getString("date_time"));
-        } else if (doc.contains("dateTime")) {
-            q.setTimeslot(doc.getString("dateTime"));
+        // Timeslot ID
+        Object tsIdObj = getValueCaseInsensitive(data, "timeslotID", "timeslot_id", "timeslotId", "time_slot_id", "timeslot_ref", "timeslotRef");
+        if (tsIdObj instanceof DocumentReference) {
+            q.setTimeslotId(((DocumentReference) tsIdObj).getId());
+        } else if (tsIdObj != null) {
+            q.setTimeslotId(String.valueOf(tsIdObj));
+        }
+
+        // Date
+        Object dateObj = getValueCaseInsensitive(data, "date", "quote_date", "date_time", "dateTime", "day");
+        if (dateObj != null) {
+            q.setDate(String.valueOf(dateObj));
+        }
+
+        // Session
+        Object sessionObj = getValueCaseInsensitive(data, "session", "quote_session", "session_time", "time_session", "slot");
+        if (sessionObj != null) {
+            q.setSession(String.valueOf(sessionObj));
+        }
+
+        // Timeslot / Raw time
+        Object timeObj = getValueCaseInsensitive(data, "timeslot", "time_slot", "timeSlot", "date_time", "dateTime", "time");
+        if (timeObj instanceof DocumentReference) {
+            if (q.getTimeslotId() == null || q.getTimeslotId().isEmpty()) {
+                q.setTimeslotId(((DocumentReference) timeObj).getId());
+            }
+            q.setTimeslot(((DocumentReference) timeObj).getId());
+        } else if (timeObj != null) {
+            q.setTimeslot(String.valueOf(timeObj));
+            if (q.getTimeslotId() == null || q.getTimeslotId().isEmpty()) {
+                q.setTimeslotId(String.valueOf(timeObj));
+            }
         } else {
             q.setTimeslot("N/A");
         }
 
         // Notes / Quote Notes
-        if (doc.contains("notes")) {
-            q.setNotes(doc.getString("notes"));
-        } else if (doc.contains("quote_notes")) {
-            q.setNotes(doc.getString("quote_notes"));
-        } else if (doc.contains("description")) {
-            q.setNotes(doc.getString("description"));
+        Object notesObj = getValueCaseInsensitive(data, "notes", "quote_notes", "quoteNotes", "description", "note");
+        if (notesObj != null) {
+            q.setNotes(String.valueOf(notesObj));
         } else {
             q.setNotes("");
         }
 
         // Job ID
-        if (doc.contains("job_id")) {
-            q.setJobId(doc.getString("job_id"));
-        } else if (doc.contains("jobId")) {
-            q.setJobId(doc.getString("jobId"));
-        } else if (doc.contains("job")) {
-            q.setJobId(doc.getString("job"));
+        Object jobObj = getValueCaseInsensitive(data, "job_id", "jobID", "jobId", "job", "job_doc", "jobRef");
+        if (jobObj instanceof DocumentReference) {
+            q.setJobId(((DocumentReference) jobObj).getId());
+        } else if (jobObj != null) {
+            q.setJobId(String.valueOf(jobObj));
         }
 
         // Status
-        if (doc.contains("status")) {
-            q.setStatus(doc.getString("status"));
-        } else if (doc.contains("quote_status")) {
-            q.setStatus(doc.getString("quote_status"));
+        Object statusObj = getValueCaseInsensitive(data, "status", "quote_status", "quoteStatus", "state");
+        if (statusObj != null) {
+            q.setStatus(String.valueOf(statusObj));
         } else {
             q.setStatus("Pending");
         }
 
         return q;
+    }
+
+    public String getFormattedTimeslot() {
+        StringBuilder sb = new StringBuilder();
+        if (date != null && !date.trim().isEmpty() && !"N/A".equalsIgnoreCase(date)) {
+            sb.append("Date: ").append(date);
+        }
+        if (session != null && !session.trim().isEmpty() && !"N/A".equalsIgnoreCase(session)) {
+            if (sb.length() > 0) {
+                sb.append(" | ");
+            }
+            sb.append("Session: ").append(session);
+        }
+        if (sb.length() > 0) {
+            return sb.toString();
+        }
+        if (timeslot != null && !timeslot.trim().isEmpty()) {
+            return timeslot;
+        }
+        return "N/A";
     }
 
     public String getQuoteId() {
@@ -152,6 +212,30 @@ public class Quote implements Serializable {
 
     public void setFee(String fee) {
         this.fee = fee;
+    }
+
+    public String getTimeslotId() {
+        return timeslotId;
+    }
+
+    public void setTimeslotId(String timeslotId) {
+        this.timeslotId = timeslotId;
+    }
+
+    public String getDate() {
+        return date;
+    }
+
+    public void setDate(String date) {
+        this.date = date;
+    }
+
+    public String getSession() {
+        return session;
+    }
+
+    public void setSession(String session) {
+        this.session = session;
     }
 
     public String getTimeslot() {

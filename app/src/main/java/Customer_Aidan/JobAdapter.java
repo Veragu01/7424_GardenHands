@@ -81,7 +81,7 @@ public class JobAdapter extends RecyclerView.Adapter<JobAdapter.JobViewHolder> {
 
             txtJobLocation.setText(job.getLocation() != null && !job.getLocation().isEmpty() ? job.getLocation() : "No location specified");
             txtJobDateTime.setText(job.getDateTime() != null && !job.getDateTime().isEmpty() ? job.getDateTime() : "N/A");
-            txtJobStatus.setText(job.getJobStatus() != null && !job.getJobStatus().isEmpty() ? job.getJobStatus() : "Open");
+            txtJobStatus.setText(job.getJobStatus() != null && !job.getJobStatus().isEmpty() ? job.getJobStatus() : "pending");
 
             itemView.setOnClickListener(v -> {
                 if (listener != null) {

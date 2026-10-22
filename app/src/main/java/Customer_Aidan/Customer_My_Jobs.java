@@ -102,11 +102,21 @@ public class Customer_My_Jobs extends AppCompatActivity implements JobAdapter.On
 
                         for (QueryDocumentSnapshot document : task.getResult()) {
                             Job job = Job.fromDocument(document);
-                            jobList.add(job);
+                            String status = job.getJobStatus();
+                            boolean isFinishedOrClosed = false;
+                            if (status != null) {
+                                String s = status.trim();
+                                if ("finished".equalsIgnoreCase(s) || "closed".equalsIgnoreCase(s)) {
+                                    isFinishedOrClosed = true;
+                                }
+                            }
+                            if (!isFinishedOrClosed) {
+                                jobList.add(job);
+                            }
                         }
 
                         if (jobList.isEmpty()) {
-                            tvEmptyJobs.setText("No jobs created yet.");
+                            tvEmptyJobs.setText("No active jobs found.");
                             tvEmptyJobs.setVisibility(View.VISIBLE);
                         } else {
                             tvEmptyJobs.setVisibility(View.GONE);

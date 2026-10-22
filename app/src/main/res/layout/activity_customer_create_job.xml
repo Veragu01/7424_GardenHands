@@ -18,95 +18,6 @@
         android:textStyle="bold"
         android:textSize="20sp"/>
 
-    <!-- Before Photo -->
-    <LinearLayout
-        android:layout_marginTop="10dp"
-        android:paddingHorizontal="10dp"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:gravity="center">
-
-        <TextView
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="10dp"
-            android:layout_weight="2"
-            android:text="Before Photo:"
-            android:textAlignment="textEnd" />
-
-        <TextView
-            android:id="@+id/txtFileName"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="2"
-            android:text="No photo selected" />
-
-        <Button
-            android:id="@+id/btnPickFile"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:backgroundTint="@color/primary_green"
-            android:text="Browse" />
-    </LinearLayout>
-
-    <!-- Date/Time -->
-    <LinearLayout
-        android:layout_marginTop="10dp"
-        android:paddingHorizontal="10dp"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal">
-
-        <TextView
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="10dp"
-            android:layout_weight="2"
-            android:text="Date/Time:"
-            android:textAlignment="textEnd" />
-
-        <EditText
-            android:id="@+id/txtJobDateTime"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="3"
-            android:backgroundTint="@color/primary_green"
-            android:hint="select date/time"
-            android:focusable="false"
-            android:clickable="true"
-            android:cursorVisible="false"
-            android:inputType="none"
-            android:textAlignment="textStart" />
-    </LinearLayout>
-
-    <!-- Fee -->
-    <LinearLayout
-        android:layout_marginTop="10dp"
-        android:paddingHorizontal="10dp"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal">
-
-        <TextView
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="10dp"
-            android:layout_weight="2"
-            android:text="Fee:"
-            android:textAlignment="textEnd" />
-
-        <EditText
-            android:id="@+id/txtJobFee"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="3"
-            android:backgroundTint="@color/primary_green"
-            android:hint="enter fee"
-            android:inputType="numberDecimal"
-            android:textAlignment="textStart" />
-    </LinearLayout>
-
     <!-- Title -->
     <LinearLayout
         android:layout_marginTop="10dp"
@@ -167,7 +78,8 @@
         android:paddingHorizontal="10dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal">
+        android:orientation="horizontal"
+        android:gravity="center_vertical">
 
         <TextView
             android:layout_width="0dp"
@@ -177,15 +89,14 @@
             android:text="Job Type:"
             android:textAlignment="textEnd" />
 
-        <EditText
-            android:id="@+id/txtJobType"
+        <Spinner
+            android:id="@+id/spinnerJobType"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="3"
             android:backgroundTint="@color/primary_green"
-            android:hint="choose job type"
-            android:inputType="text"
-            android:textAlignment="textStart" />
+            android:minHeight="48dp"
+            android:entries="@array/job_types_array" />
     </LinearLayout>
 
     <!-- Location -->

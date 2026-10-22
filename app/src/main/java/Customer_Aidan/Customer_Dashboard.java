@@ -15,7 +15,7 @@ import com.AGU.gardenhands.R;
 
 public class Customer_Dashboard extends AppCompatActivity {
 
-    Button btnCCreateJob, btnCMyJobs, btnCMyProfile;
+    Button btnCCreateJob, btnCMyJobs, btnCMyProfile, btnCCompleteJobs;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,6 +31,7 @@ public class Customer_Dashboard extends AppCompatActivity {
         btnCCreateJob = findViewById(R.id.btnCDashCreateJob);
         btnCMyJobs = findViewById(R.id.btnCDashMyJobs);
         btnCMyProfile = findViewById(R.id.btnCDashMyProfile);
+        btnCCompleteJobs = findViewById(R.id.btnCDashCompletedJobs);
 
         btnCCreateJob.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -52,6 +53,14 @@ public class Customer_Dashboard extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(Customer_Dashboard.this, Customer_Profile.class);
+                startActivity(intent);
+            }
+        });
+
+        btnCCompleteJobs.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(Customer_Dashboard.this, Customer_Completed_Jobs.class);
                 startActivity(intent);
             }
         });
