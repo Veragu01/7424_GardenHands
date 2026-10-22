@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<adaptive-icon xmlns:android="http://schemas.android.com/apk/res/android">
+    <background android:drawable="@drawable/gardenhands_logo_background"/>
+    <foreground android:drawable="@mipmap/gardenhands_logo_foreground"/>
+    <monochrome android:drawable="@mipmap/gardenhands_logo_foreground"/>
+</adaptive-icon>

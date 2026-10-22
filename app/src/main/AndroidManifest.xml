@@ -6,9 +6,9 @@
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
         android:fullBackupContent="@xml/backup_rules"
-        android:icon="@mipmap/ic_launcher"
+        android:icon="@mipmap/gardenhands_logo"
         android:label="@string/app_name"
-        android:roundIcon="@mipmap/ic_launcher_round"
+        android:roundIcon="@mipmap/gardenhands_logo_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.GardenHands">
         <activity
@@ -31,6 +31,34 @@
             android:windowSoftInputMode="adjustResize" />
         <activity
             android:name="Admin_Greg.Admin_Dashboard"
+            android:exported="false"
+            android:windowSoftInputMode="adjustResize" />
+        <activity
+            android:name="Admin_Greg.Users.CreateNewUser.Admin_CreateNewUser"
+            android:exported="false"
+            android:windowSoftInputMode="adjustResize" />
+        <activity
+            android:name="Admin_Greg.Users.ViewAllUsers.Admin_ViewAllUsers"
+            android:exported="false"
+            android:windowSoftInputMode="adjustResize" />
+        <activity
+            android:name="Admin_Greg.Jobs.VerifyNewJobs.Admin_VerifyNewJobs"
+            android:exported="false"
+            android:windowSoftInputMode="adjustResize" />
+        <activity
+            android:name="Admin_Greg.Jobs.CloseFinishedJobs.Admin_CloseFinishedJobs"
+            android:exported="false"
+            android:windowSoftInputMode="adjustResize" />
+        <activity
+            android:name="Admin_Greg.Jobs.DeleteJobs.Admin_DeleteJobs"
+            android:exported="false"
+            android:windowSoftInputMode="adjustResize" />
+        <activity
+            android:name="Admin_Greg.Jobs.ViewAllJobs.Admin_ViewAllJobs"
+            android:exported="false"
+            android:windowSoftInputMode="adjustResize" />
+        <activity
+            android:name="Admin_Greg.Jobs.ViewSelectJob.Admin_ViewSelectJob"
             android:exported="false"
             android:windowSoftInputMode="adjustResize" />
         <activity
@@ -63,6 +91,39 @@
             android:windowSoftInputMode="adjustResize" />
         <activity
             android:name="Customer_Aidan.Customer_Quote_Details"
+            android:name="Admin_Greg.Users.ViewSelectUser.Admin_ViewSelectUser"
+            android:exported="false"
+            android:windowSoftInputMode="adjustResize" />
+        <activity
+            android:name="Gardener_Uly.OpenJobs.Gardener_OpenJobs"
+            android:exported="false"
+            android:windowSoftInputMode="adjustResize" />
+        <activity
+            android:name="Gardener_Uly.MyProfile.Gardener_MyProfile"
+            android:exported="false"
+            android:windowSoftInputMode="adjustResize" />
+        <activity
+            android:name="Gardener_Uly.WeeklyCalendar.Gardener_WeeklyCalendar"
+            android:exported="false"
+            android:windowSoftInputMode="adjustResize" />
+        <activity
+            android:name="Gardener_Uly.MyProfile.Gardeners_UpdateProfile"
+            android:exported="false"
+            android:windowSoftInputMode="adjustResize" />
+        <activity
+            android:name="Gardener_Uly.MyAvailability.Gardener_SetAvailability"
+            android:exported="false"
+            android:windowSoftInputMode="adjustResize" />
+        <activity
+            android:name="Gardener_Uly.MyJobs.Gardener_MyJobs"
+            android:exported="false"
+            android:windowSoftInputMode="adjustResize" />
+        <activity
+            android:name="Gardener_Uly.JobDetails.Gardener_JobDetails"
+            android:exported="false"
+            android:windowSoftInputMode="adjustResize" />
+        <activity
+            android:name="Gardener_Uly.ProvideQuote.Gardener_ProvideQuote"
             android:exported="false"
             android:windowSoftInputMode="adjustResize" />
     </application>
