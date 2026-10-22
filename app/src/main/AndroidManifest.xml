@@ -91,6 +91,9 @@
             android:windowSoftInputMode="adjustResize" />
         <activity
             android:name="Customer_Aidan.Customer_Quote_Details"
+            android:exported="false"
+            android:windowSoftInputMode="adjustResize" />
+        <activity
             android:name="Admin_Greg.Users.ViewSelectUser.Admin_ViewSelectUser"
             android:exported="false"
             android:windowSoftInputMode="adjustResize" />
