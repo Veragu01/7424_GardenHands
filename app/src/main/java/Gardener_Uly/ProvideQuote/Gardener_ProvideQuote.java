@@ -240,7 +240,7 @@ public class Gardener_ProvideQuote extends AppCompatActivity {
                     timeslotDocument = task.getResult().getDocuments().get(0);
                     timeslotID = timeslotDocument.getId();
                     timeslotAvailability = timeslotDocument.getString("availability");
-                    if (timeslotAvailability.equals("Available")) {
+                    if (!timeslotAvailability.equals("Unavailable")) {
                         checkQuotes();
                     } else {
                         Toast.makeText(getApplicationContext(), "Error: Timeslot Unavailable", Toast.LENGTH_LONG).show();
