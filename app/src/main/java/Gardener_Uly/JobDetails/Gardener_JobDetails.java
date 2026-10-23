@@ -32,6 +32,7 @@ import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.util.ArrayList;
 
+import Gardener_Uly.Gardener_Dashboard;
 import Gardener_Uly.MyJobs.Gardener_MyJobs;
 import Gardener_Uly.ProvideQuote.Gardener_ProvideQuote;
 
@@ -167,10 +168,11 @@ public class Gardener_JobDetails extends AppCompatActivity {
                     public void onClick(DialogInterface dialog, int choice) {
                         switch (choice) { // switch to determine outcome based on what dialog button is clicked
                             case DialogInterface.BUTTON_POSITIVE:
-                                docRef.update("status", "work_completed");
+                                docRef.update("job_status", "work_completed");
                                 Toast.makeText(Gardener_JobDetails.this, "Job marked as Completed", Toast.LENGTH_SHORT).show();
-                                Intent intent = new Intent(Gardener_JobDetails.this, Gardener_MyJobs.class);
+                                Intent intent = new Intent(Gardener_JobDetails.this, Gardener_Dashboard.class);
                                 startActivity(intent);
+                                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                                 finish();
                                 break;
                             case DialogInterface.BUTTON_NEGATIVE:
