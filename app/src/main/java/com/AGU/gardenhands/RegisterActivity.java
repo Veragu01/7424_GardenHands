@@ -75,7 +75,7 @@ public class RegisterActivity extends AppCompatActivity {
                 rbGardener.setChecked(false);
                 rbCustomer.setChecked(true);
                 user_group = "Customers";
-                authorised = "True";
+                authorised = "true";
             }
         });
 
@@ -86,7 +86,7 @@ public class RegisterActivity extends AppCompatActivity {
                 rbGardener.setChecked(true);
                 rbCustomer.setChecked(false);
                 user_group = "Gardeners";
-                authorised = "False";
+                authorised = "false";
             }
         });
 

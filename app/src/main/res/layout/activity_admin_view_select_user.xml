@@ -19,6 +19,7 @@
         android:textSize="24sp"
         android:textColor="@color/black"
         android:textAlignment="center"
+        android:layout_marginTop="16dp"
         android:layout_marginBottom="24dp"/>
 
     <LinearLayout
@@ -30,6 +31,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:text="Name:"
+            android:textAlignment="textEnd"
             android:textSize="18sp"
             android:textColor="@color/black"
             android:textStyle="bold" />
@@ -54,6 +56,7 @@
                 android:layout_weight="1"
                 android:layout_marginTop="8dp"
                 android:text="User group:"
+                android:textAlignment="textEnd"
                 android:textStyle="bold"
                 android:textColor="@color/black"
                 android:textSize="18sp" />
@@ -79,6 +82,7 @@
                 android:layout_weight="1"
                 android:layout_marginTop="8dp"
                 android:text="Email:"
+                android:textAlignment="textEnd"
                 android:textStyle="bold"
                 android:textColor="@color/black"
                 android:textSize="18sp" />
@@ -105,6 +109,7 @@
                 android:layout_weight="1"
                 android:layout_marginTop="8dp"
                 android:text="Phone:"
+                android:textAlignment="textEnd"
                 android:textStyle="bold"
                 android:textColor="@color/black"
                 android:textSize="18sp" />
@@ -130,6 +135,7 @@
                 android:layout_weight="1"
                 android:layout_marginTop="8dp"
                 android:text="Authorised:"
+                android:textAlignment="textEnd"
                 android:textStyle="bold"
                 android:textColor="@color/black"
                 android:textSize="18sp" />

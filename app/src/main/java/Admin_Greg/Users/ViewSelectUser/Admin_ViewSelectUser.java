@@ -1,5 +1,6 @@
 package Admin_Greg.Users.ViewSelectUser;
 
+import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Patterns;
 import android.view.View;
@@ -70,12 +71,19 @@ public class Admin_ViewSelectUser extends AppCompatActivity {
         setUnabled();
         btn_usercard_save.setVisibility(View.GONE);
 
+        if(edit_usercard_authorised.getText().toString().trim().equals("true")){
+            edit_usercard_authorised.setTextColor(Color.GREEN);
+        }else{
+            edit_usercard_authorised.setTextColor(Color.RED);
+        }
+
         btn_usercard_activate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 edit_usercard_authorised.setEnabled(true);
                 edit_usercard_authorised.setText("true");
                 edit_usercard_authorised.setEnabled(false);
+                edit_usercard_authorised.setTextColor(Color.GREEN);
                 Toast.makeText(Admin_ViewSelectUser.this, "User account activated successfully.", Toast.LENGTH_SHORT).show();
                 btn_usercard_activate.setVisibility(View.GONE);
             }
@@ -106,6 +114,7 @@ public class Admin_ViewSelectUser extends AppCompatActivity {
                 btn_usercard_deactivate_cancel.setVisibility(View.VISIBLE);
                 btn_usercard_deactivate_confirm.setVisibility(View.VISIBLE);
                 btn_usercard_deactivate.setVisibility((View.GONE));
+                edit_usercard_authorised.setTextColor(Color.YELLOW);
             }
         });
         btn_usercard_deactivate_cancel.setOnClickListener(new View.OnClickListener() {
@@ -116,6 +125,7 @@ public class Admin_ViewSelectUser extends AppCompatActivity {
                 btn_usercard_deactivate.setVisibility(View.VISIBLE);
                 btn_usercard_activate.setVisibility(View.GONE);
                 btn_usercard_deactivate.setVisibility(View.GONE);
+                edit_usercard_authorised.setTextColor(Color.GREEN);
             }
         });
         btn_usercard_deactivate_confirm.setOnClickListener(new View.OnClickListener() {
@@ -156,6 +166,7 @@ public class Admin_ViewSelectUser extends AppCompatActivity {
                             } else {
                                 edit_usercard_authorised.setEnabled(true);
                                 edit_usercard_authorised.setText("false");
+                                edit_usercard_authorised.setTextColor(Color.RED);
                                 edit_usercard_authorised.setEnabled(false);
                                 btn_usercard_deactivate_cancel.setVisibility(View.GONE);
                                 btn_usercard_deactivate_confirm.setVisibility(View.GONE);

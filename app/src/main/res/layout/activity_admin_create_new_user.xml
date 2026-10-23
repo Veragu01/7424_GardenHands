@@ -32,12 +32,12 @@
             android:layout_width="0dp"
             android:layout_weight="2"
             android:layout_height="wrap_content"
-            android:textAlignment="center"
+            android:textAlignment="textEnd"
             android:textColor="@color/black"
-            android:textStyle="bold"/>
+            android:textStyle="bold" />
         <RadioGroup
             android:layout_width="0dp"
-            android:layout_weight="3"
+            android:layout_weight="3.5"
             android:layout_height="wrap_content">
             <LinearLayout
                 android:layout_width="match_parent"
@@ -75,13 +75,13 @@
             android:layout_width="0dp"
             android:layout_weight="2"
             android:layout_height="wrap_content"
-            android:textAlignment="center"
+            android:textAlignment="textEnd"
             android:textColor="@color/black"
             android:textStyle="bold"/>
         <EditText
             android:id="@+id/txtAdminRegisterFullName"
             android:layout_width="0dp"
-            android:layout_weight="3"
+            android:layout_weight="3.5"
             android:layout_height="wrap_content"
             android:textAlignment="center"
             android:hint="enter full name"/>
@@ -98,13 +98,13 @@
             android:layout_width="0dp"
             android:layout_weight="2"
             android:layout_height="wrap_content"
-            android:textAlignment="center"
+            android:textAlignment="textEnd"
             android:textColor="@color/black"
             android:textStyle="bold"/>
         <EditText
             android:id="@+id/txtAdminCreateNewPassword"
             android:layout_width="0dp"
-            android:layout_weight="3"
+            android:layout_weight="3.5"
             android:layout_height="wrap_content"
             android:textAlignment="center"
             android:inputType="textPassword"
@@ -122,13 +122,13 @@
             android:layout_width="0dp"
             android:layout_weight="2"
             android:layout_height="wrap_content"
-            android:textAlignment="center"
+            android:textAlignment="textEnd"
             android:textColor="@color/black"
             android:textStyle="bold"/>
         <EditText
             android:id="@+id/txtAdminConfirmNewPassword"
             android:layout_width="0dp"
-            android:layout_weight="3"
+            android:layout_weight="3.5"
             android:layout_height="wrap_content"
             android:textAlignment="center"
             android:inputType="textPassword"
@@ -146,13 +146,13 @@
             android:layout_width="0dp"
             android:layout_weight="2"
             android:layout_height="wrap_content"
-            android:textAlignment="center"
+            android:textAlignment="textEnd"
             android:textColor="@color/black"
             android:textStyle="bold"/>
         <EditText
             android:id="@+id/txtAdminCreateNewEmail"
             android:layout_width="0dp"
-            android:layout_weight="3"
+            android:layout_weight="3.5"
             android:layout_height="wrap_content"
             android:textAlignment="center"
             android:hint="enter email"/>
@@ -169,13 +169,13 @@
             android:layout_width="0dp"
             android:layout_weight="2"
             android:layout_height="wrap_content"
-            android:textAlignment="center"
+            android:textAlignment="textEnd"
             android:textColor="@color/black"
             android:textStyle="bold"/>
         <EditText
             android:id="@+id/txtAdminCreateNewPhone"
             android:layout_width="0dp"
-            android:layout_weight="3"
+            android:layout_weight="3.5"
             android:layout_height="wrap_content"
             android:textAlignment="center"
             android:inputType="number"
