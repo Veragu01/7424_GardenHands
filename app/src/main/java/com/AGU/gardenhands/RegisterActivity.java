@@ -63,8 +63,8 @@ public class RegisterActivity extends AppCompatActivity {
 
         mAuth = FirebaseAuth.getInstance();
         db = FirebaseFirestore.getInstance();
-
-
+        user_group = "Customers";
+        authorised = "True";
 
 
 
@@ -74,7 +74,6 @@ public class RegisterActivity extends AppCompatActivity {
             public void onClick(View v) {
                 rbGardener.setChecked(false);
                 rbCustomer.setChecked(true);
-                Toast.makeText(getApplicationContext(), "test 1", Toast.LENGTH_SHORT).show();
                 user_group = "Customers";
                 authorised = "True";
             }
@@ -86,7 +85,6 @@ public class RegisterActivity extends AppCompatActivity {
             public void onClick(View v) {
                 rbGardener.setChecked(true);
                 rbCustomer.setChecked(false);
-                Toast.makeText(getApplicationContext(), "test 2", Toast.LENGTH_SHORT).show();
                 user_group = "Gardeners";
                 authorised = "False";
             }

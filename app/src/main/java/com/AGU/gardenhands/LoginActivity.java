@@ -74,7 +74,7 @@ public class LoginActivity extends AppCompatActivity {
                         @Override
                         public void onComplete(@NonNull Task<AuthResult> task) {
                             if (task.isSuccessful()) {
-                                Toast.makeText(LoginActivity.this, "Login success", Toast.LENGTH_SHORT).show();
+
 
                                 db = FirebaseFirestore.getInstance();
                                 DocumentReference docRef = db.collection("users").document(mAuth.getCurrentUser().getUid());
@@ -91,18 +91,18 @@ public class LoginActivity extends AppCompatActivity {
                                                     if(document.get("authorised").equals("False")){
                                                         Toast.makeText(LoginActivity.this, "Your account is waiting to be authorised by an admin", Toast.LENGTH_SHORT).show();
                                                     }else {
-                                                        Toast.makeText(getApplicationContext(), "Opening Gardeners Dash", Toast.LENGTH_SHORT).show();
+                                                        Toast.makeText(LoginActivity.this, "Login success", Toast.LENGTH_SHORT).show();
                                                         Intent intent = new Intent(getApplicationContext(), Gardener_Dashboard.class);
                                                         startActivity(intent);
                                                         finish();
                                                     }
                                                 } else if (document.get("user_group").equals("Customers")) { // opens customers dash on login success
-                                                    Toast.makeText(getApplicationContext(), "Opening Customer Dash", Toast.LENGTH_SHORT).show();
+                                                    Toast.makeText(LoginActivity.this, "Login success", Toast.LENGTH_SHORT).show();
                                                     Intent intent = new Intent(getApplicationContext(), Customer_Dashboard.class);
                                                     startActivity(intent);
                                                     finish();
                                                 } else if (document.get("user_group").equals("Administrators")) { // opens administrators dash on login success
-                                                    Toast.makeText(getApplicationContext(), "Opening Administrators Dash", Toast.LENGTH_SHORT).show();
+                                                    Toast.makeText(LoginActivity.this, "Login success", Toast.LENGTH_SHORT).show();
                                                     Intent intent = new Intent(getApplicationContext(), Admin_Dashboard.class);
                                                     startActivity(intent);
                                                     finish();
