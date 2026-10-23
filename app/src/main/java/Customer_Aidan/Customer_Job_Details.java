@@ -79,12 +79,6 @@ public class Customer_Job_Details extends AppCompatActivity {
         btnDeleteJob = findViewById(R.id.btnDeleteJob);
         btnCancelJob = findViewById(R.id.btnCancelJob);
 
-        txtJobDateTime.setOnClickListener(v -> {
-            if (!isFinishedOrClosed()) {
-                showDateTimePicker(txtJobDateTime);
-            }
-        });
-
         extractIntentDataAndPopulate();
 
         btnUpdateJob.setOnClickListener(v -> updateJobInFirestore());
@@ -454,47 +448,5 @@ public class Customer_Job_Details extends AppCompatActivity {
             intent.putExtra("job", jobObject);
         }
         startActivity(intent);
-    }
-
-    private void showDateTimePicker(EditText editText) {
-        final Calendar calendar = Calendar.getInstance();
-
-        String currentText = editText.getText().toString().trim();
-        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm", Locale.getDefault());
-        if (!currentText.isEmpty()) {
-            try {
-                Date date = sdf.parse(currentText);
-                if (date != null) {
-                    calendar.setTime(date);
-                }
-            } catch (Exception ignored) {
-            }
-        }
-
-        DatePickerDialog datePickerDialog = new DatePickerDialog(
-                this,
-                (view, year, month, dayOfMonth) -> {
-                    calendar.set(Calendar.YEAR, year);
-                    calendar.set(Calendar.MONTH, month);
-                    calendar.set(Calendar.DAY_OF_MONTH, dayOfMonth);
-
-                    TimePickerDialog timePickerDialog = new TimePickerDialog(
-                            this,
-                            (timeView, hourOfDay, minute) -> {
-                                calendar.set(Calendar.HOUR_OF_DAY, hourOfDay);
-                                calendar.set(Calendar.MINUTE, minute);
-                                editText.setText(sdf.format(calendar.getTime()));
-                            },
-                            calendar.get(Calendar.HOUR_OF_DAY),
-                            calendar.get(Calendar.MINUTE),
-                            true
-                    );
-                    timePickerDialog.show();
-                },
-                calendar.get(Calendar.YEAR),
-                calendar.get(Calendar.MONTH),
-                calendar.get(Calendar.DAY_OF_MONTH)
-        );
-        datePickerDialog.show();
     }
 }
