@@ -31,6 +31,7 @@ public class Admin_ViewSelectUser extends AppCompatActivity {
 
     String originalName, originalUsergroup, originalEmail, originalPhone, originalAuthorised;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -71,11 +72,7 @@ public class Admin_ViewSelectUser extends AppCompatActivity {
         setUnabled();
         btn_usercard_save.setVisibility(View.GONE);
 
-        if(edit_usercard_authorised.getText().toString().trim().equals("true")){
-            edit_usercard_authorised.setTextColor(Color.GREEN);
-        }else{
-            edit_usercard_authorised.setTextColor(Color.RED);
-        }
+
 
         btn_usercard_activate.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -104,6 +101,11 @@ public class Admin_ViewSelectUser extends AppCompatActivity {
 
                     btn_usercard_edit.setText("Edit Details");
                     btn_usercard_save.setVisibility(View.GONE);
+                    if(edit_usercard_authorised.getText().toString().equals("false")){
+                        edit_usercard_authorised.setTextColor(Color.RED);
+                    }else{
+                        edit_usercard_authorised.setTextColor(Color.GREEN);
+                    }
                     setUnabled();
                 }
             }
@@ -114,7 +116,8 @@ public class Admin_ViewSelectUser extends AppCompatActivity {
                 btn_usercard_deactivate_cancel.setVisibility(View.VISIBLE);
                 btn_usercard_deactivate_confirm.setVisibility(View.VISIBLE);
                 btn_usercard_deactivate.setVisibility((View.GONE));
-                edit_usercard_authorised.setTextColor(Color.YELLOW);
+                btn_usercard_save.setVisibility(View.GONE);
+                btn_usercard_edit.setVisibility(View.GONE);
             }
         });
         btn_usercard_deactivate_cancel.setOnClickListener(new View.OnClickListener() {
@@ -123,9 +126,12 @@ public class Admin_ViewSelectUser extends AppCompatActivity {
                 btn_usercard_deactivate_confirm.setVisibility(View.GONE);
                 btn_usercard_deactivate_cancel.setVisibility(View.GONE);
                 btn_usercard_deactivate.setVisibility(View.VISIBLE);
+                btn_usercard_deactivate.setVisibility(View.VISIBLE);
                 btn_usercard_activate.setVisibility(View.GONE);
-                btn_usercard_deactivate.setVisibility(View.GONE);
+                btn_usercard_deactivate.setVisibility(View.VISIBLE);
                 edit_usercard_authorised.setTextColor(Color.GREEN);
+                btn_usercard_save.setVisibility(View.VISIBLE);
+                btn_usercard_edit.setVisibility(View.VISIBLE);
             }
         });
         btn_usercard_deactivate_confirm.setOnClickListener(new View.OnClickListener() {
@@ -170,6 +176,8 @@ public class Admin_ViewSelectUser extends AppCompatActivity {
                                 edit_usercard_authorised.setEnabled(false);
                                 btn_usercard_deactivate_cancel.setVisibility(View.GONE);
                                 btn_usercard_deactivate_confirm.setVisibility(View.GONE);
+                                btn_usercard_save.setVisibility(View.VISIBLE);
+                                btn_usercard_edit.setVisibility(View.VISIBLE);
                             }
                         }
                     }
@@ -264,9 +272,11 @@ public class Admin_ViewSelectUser extends AppCompatActivity {
         if (originalAuthorised.equals("false")){
             btn_usercard_activate.setVisibility(View.VISIBLE);
             btn_usercard_deactivate.setVisibility(View.GONE);
+            edit_usercard_authorised.setTextColor(Color.RED);
         }else{
             btn_usercard_activate.setVisibility(View.GONE);
             btn_usercard_deactivate.setVisibility(View.VISIBLE);
+            edit_usercard_authorised.setTextColor(Color.GREEN);
         }
     }
 }

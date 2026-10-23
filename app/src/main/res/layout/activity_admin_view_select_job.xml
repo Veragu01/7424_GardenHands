@@ -1,11 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="Admin_Greg.Jobs.ViewSelectJob.Admin_ViewSelectJob"
+    android:fillViewport="true"
+    tools:context="Admin_Greg.Jobs.ViewSelectJob.Admin_ViewSelectJob">
+<LinearLayout
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
     android:orientation="vertical"
+    android:minHeight="1000dp"
     android:layout_gravity="center_horizontal"
     android:background="@color/background_green"
     android:padding="16dp">
@@ -265,7 +272,7 @@
         android:id="@+id/edit_jobcard_description"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:minLines="2"
+        android:maxLines="10"
         android:textSize="16sp"
         android:textColor="@color/black"
         android:inputType="none"
@@ -296,6 +303,7 @@
             android:textSize="18sp"
             android:textColor="@color/black"
             android:inputType="none"
+            android:maxLines="4"
             android:enabled="false" />
     </LinearLayout>
 
@@ -339,3 +347,4 @@
         android:visibility="gone" />
 
 </LinearLayout>
+</ScrollView>
