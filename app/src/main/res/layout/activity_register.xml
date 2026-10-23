@@ -11,202 +11,218 @@
     android:background="@color/background_green"
     android:gravity="center_horizontal">
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Create new account"
-        android:textStyle="bold"
-        android:textSize="20sp"/>
     <LinearLayout
-        android:layout_marginTop="10dp"
-        android:paddingHorizontal="10dp"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:gravity="center">
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:gravity="center_horizontal"
+        android:layout_margin="16sp">
 
         <TextView
-            android:layout_width="0dp"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginEnd="10dp"
-            android:layout_weight="2"
-            android:text="Account Type:"
-            android:textAlignment="textEnd" />
-        <RadioGroup
-            android:layout_width="0dp"
-            android:layout_weight="3"
-            android:layout_height="wrap_content">
-            <LinearLayout
+            android:text="Create new account"
+            android:textSize="20sp"
+            android:textStyle="bold" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:gravity="center"
+            android:orientation="horizontal"
+            android:paddingHorizontal="10dp">
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="10dp"
+                android:layout_weight="2"
+                android:text="Account Type:"
+                android:textAlignment="textEnd" />
+
+            <RadioGroup
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="5">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <RadioButton
+                        android:id="@+id/rdoCreateNewCustomer"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginHorizontal="5dp"
+                        android:buttonTint="@color/primary_green"
+                        android:checked="true"
+                        android:text="Customer"
+                        android:textColorLink="@color/primary_green" />
+
+                    <RadioButton
+                        android:id="@+id/rdoCreateNewGardener"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginHorizontal="5dp"
+                        android:buttonTint="@color/primary_green"
+                        android:text="Gardener" />
+                </LinearLayout>
+            </RadioGroup>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:orientation="horizontal"
+            android:paddingHorizontal="10dp">
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="10dp"
+                android:layout_weight="2"
+                android:text="Full Name:"
+                android:textAlignment="textEnd" />
+
+            <EditText
+                android:id="@+id/txtRegisterFullName"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="3"
+                android:backgroundTint="@color/primary_green"
+                android:hint="enter full name"
+                android:textAlignment="textStart" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:orientation="horizontal"
+            android:paddingHorizontal="10dp">
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="10dp"
+                android:layout_weight="2"
+                android:text="Password:"
+                android:textAlignment="textEnd" />
+
+            <EditText
+                android:id="@+id/txtCreateNewPassword"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="3"
+                android:backgroundTint="@color/primary_green"
+                android:hint="enter new password"
+                android:inputType="textPassword"
+                android:textAlignment="textStart" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:orientation="horizontal"
+            android:paddingHorizontal="10dp">
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="10dp"
+                android:layout_weight="2"
+                android:text="Confirm Password:"
+                android:textAlignment="textEnd" />
+
+            <EditText
+                android:id="@+id/txtConfirmNewPassword"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="3"
+                android:backgroundTint="@color/primary_green"
+                android:hint="confirm password"
+                android:inputType="textPassword"
+                android:textAlignment="textStart" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:orientation="horizontal"
+            android:paddingHorizontal="10dp">
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="10dp"
+                android:layout_weight="2"
+                android:text="Email Address:"
+                android:textAlignment="textEnd" />
+
+            <EditText
+                android:id="@+id/txtCreateNewEmail"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="3"
+                android:backgroundTint="@color/primary_green"
+                android:hint="enter email"
+                android:textAlignment="textStart" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:orientation="horizontal"
+            android:paddingHorizontal="10dp">
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="10dp"
+                android:layout_weight="2"
+                android:text="Phone Number:"
+                android:textAlignment="textEnd" />
+
+            <EditText
+                android:id="@+id/txtCreateNewPhone"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="3"
+                android:backgroundTint="@color/primary_green"
+                android:hint="enter phone number"
+                android:inputType="number"
+                android:textAlignment="textStart" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <Button
+                android:id="@+id/btnCreateNewAccount"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal">
+                android:layout_marginHorizontal="10dp"
+                android:layout_weight="1"
+                android:backgroundTint="@color/primary_green"
+                android:text="Create new account" />
 
-                <RadioButton
-                    android:id="@+id/rdoCreateNewCustomer"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginHorizontal="5dp"
-                    android:buttonTint="@color/primary_green"
-                    android:checked="true"
-                    android:text="Customer"
-                    android:textColorLink="@color/primary_green" />
-
-                <RadioButton
-                    android:id="@+id/rdoCreateNewGardener"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginHorizontal="5dp"
-                    android:buttonTint="@color/primary_green"
-                    android:text="Gardener" />
-            </LinearLayout>
-        </RadioGroup>
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_marginTop="10dp"
-        android:paddingHorizontal="10dp"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal">
-
-        <TextView
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="10dp"
-            android:layout_weight="2"
-            android:text="Full Name:"
-            android:textAlignment="textEnd" />
-
-        <EditText
-            android:id="@+id/txtRegisterFullName"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="3"
-            android:backgroundTint="@color/primary_green"
-            android:hint="enter full name"
-            android:textAlignment="textStart" />
-    </LinearLayout>
-    <LinearLayout
-        android:layout_marginTop="10dp"
-        android:paddingHorizontal="10dp"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal">
-
-        <TextView
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="10dp"
-            android:layout_weight="2"
-            android:text="Password:"
-            android:textAlignment="textEnd" />
-
-        <EditText
-            android:id="@+id/txtCreateNewPassword"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="3"
-            android:backgroundTint="@color/primary_green"
-            android:hint="enter new password"
-            android:inputType="textPassword"
-            android:textAlignment="textStart" />
-    </LinearLayout>
-    <LinearLayout
-        android:layout_marginTop="10dp"
-        android:paddingHorizontal="10dp"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal">
-
-        <TextView
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="10dp"
-            android:layout_weight="2"
-            android:text="Confirm Password:"
-            android:textAlignment="textEnd" />
-
-        <EditText
-            android:id="@+id/txtConfirmNewPassword"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="3"
-            android:backgroundTint="@color/primary_green"
-            android:hint="confirm password"
-            android:inputType="textPassword"
-            android:textAlignment="textStart" />
-    </LinearLayout>
-    <LinearLayout
-        android:layout_marginTop="10dp"
-        android:paddingHorizontal="10dp"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal">
-
-        <TextView
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="10dp"
-            android:layout_weight="2"
-            android:text="Email Address:"
-            android:textAlignment="textEnd" />
-
-        <EditText
-            android:id="@+id/txtCreateNewEmail"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="3"
-            android:backgroundTint="@color/primary_green"
-            android:hint="enter email"
-            android:textAlignment="textStart" />
-    </LinearLayout>
-    <LinearLayout
-        android:layout_marginTop="10dp"
-        android:paddingHorizontal="10dp"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal">
-
-        <TextView
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="10dp"
-            android:layout_weight="2"
-            android:text="Phone Number:"
-            android:textAlignment="textEnd" />
-
-        <EditText
-            android:id="@+id/txtCreateNewPhone"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="3"
-            android:backgroundTint="@color/primary_green"
-            android:hint="enter phone number"
-            android:inputType="number"
-            android:textAlignment="textStart" />
-    </LinearLayout>
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal">
-
-        <Button
-            android:id="@+id/btnCreateNewAccount"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginHorizontal="10dp"
-            android:layout_weight="1"
-            android:backgroundTint="@color/primary_green"
-            android:text="Create new account" />
-
-        <Button
-            android:id="@+id/btnCancelNewAccount"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginHorizontal="10dp"
-            android:layout_weight="1"
-            android:backgroundTint="@color/primary_green"
-            android:text="Cancel" />
+            <Button
+                android:id="@+id/btnCancelNewAccount"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="10dp"
+                android:layout_weight="1"
+                android:backgroundTint="@color/primary_green"
+                android:text="Cancel" />
+        </LinearLayout>
     </LinearLayout>
 
 </LinearLayout>
