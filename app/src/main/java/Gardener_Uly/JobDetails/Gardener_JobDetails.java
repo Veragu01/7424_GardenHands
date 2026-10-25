@@ -127,7 +127,7 @@ public class Gardener_JobDetails extends AppCompatActivity {
 
                     if (source.equals("MyJobs")) {
                         txtJobDate.setText(jobDocument.get("date_time").toString());
-                        txtGJD_JobFee.setText(jobDocument.get("fee").toString());
+                        txtGJD_JobFee.setText("$" + jobDocument.get("fee").toString());
                         txtJobLocation.setText(location);
                         DetailsSection.setVisibility(View.VISIBLE);
                         GJD_DateLayout.setVisibility(View.VISIBLE);
