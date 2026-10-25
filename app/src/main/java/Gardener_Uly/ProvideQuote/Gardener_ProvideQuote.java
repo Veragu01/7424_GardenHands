@@ -47,7 +47,7 @@ public class Gardener_ProvideQuote extends AppCompatActivity {
     EditText etxtFee, etxtNotes;
     Button btnSendQuote, btnCancelQuote;
     int dayOfMonth, monthIndex, year;
-    String date, jobID, session, timeslotID="", timeslotAvailability="";
+    String date, jobID, session="AM", timeslotID="", timeslotAvailability="";
     MaterialCardView crdFeeCard, crdDateCard;
     LinearLayout mainLayout;
     FirebaseAuth mAuth;
