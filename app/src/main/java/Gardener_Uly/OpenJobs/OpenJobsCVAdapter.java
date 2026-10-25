@@ -35,7 +35,7 @@ public class OpenJobsCVAdapter extends RecyclerView.Adapter<OpenJobsCVHolder>{
         Jobs jobs = jobsList.get(position);
 
         holder.txtTitle.setText(jobs.getJob_title());
-        holder.txtJobType.setText(jobs.getJob_type());
+        holder.txtJobType.setText(jobs.getJob_type() + " - " + jobs.getSize());
         holder.txtJobID.setText(jobs.getDocumentId());
 
     }
