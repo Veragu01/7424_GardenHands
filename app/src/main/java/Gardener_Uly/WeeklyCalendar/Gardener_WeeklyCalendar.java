@@ -298,6 +298,24 @@ public class Gardener_WeeklyCalendar extends AppCompatActivity {
             }
 
             updateCalendar(firstdayOfWeek, monthIndex, year);
+
+        } else if (dayOfWeek==7) { // Saturday
+            firstdayOfWeek=dayOfMonth-5;
+            if (firstdayOfWeek<=0) {
+                monthIndex--;
+                firstdayOfWeek= 31+firstdayOfWeek;
+            }
+
+            updateCalendar(firstdayOfWeek, monthIndex, year);
+
+        } else if (dayOfWeek==1) { // Sunday
+            firstdayOfWeek=dayOfMonth+1;
+            if (firstdayOfWeek<=0) {
+                monthIndex--;
+                firstdayOfWeek= 31+firstdayOfWeek;
+            }
+
+            updateCalendar(firstdayOfWeek, monthIndex, year);
         }
     }
 
