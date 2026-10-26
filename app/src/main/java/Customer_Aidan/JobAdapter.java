@@ -69,19 +69,35 @@ public class JobAdapter extends RecyclerView.Adapter<JobAdapter.JobViewHolder> {
         public void bind(final Job job, final OnJobClickListener listener) {
             txtJobTitle.setText(job.getJobTitle() != null && !job.getJobTitle().isEmpty() ? job.getJobTitle() : "Untitled Job");
 
-            String feeStr = job.getFee();
-            if (feeStr != null && !feeStr.isEmpty()) {
-                if (!feeStr.startsWith("$")) {
-                    feeStr = "$" + feeStr;
+            String status = job.getJobStatus();
+            boolean isQuotePicked = status != null && !status.trim().isEmpty()
+                    && !status.equalsIgnoreCase("pending")
+                    && !status.equalsIgnoreCase("verified");
+
+            if (isQuotePicked) {
+                String feeStr = job.getFee();
+                if (feeStr != null && !feeStr.trim().isEmpty() && !feeStr.equalsIgnoreCase("null")) {
+                    if (!feeStr.startsWith("$")) {
+                        feeStr = "$" + feeStr;
+                    }
+                    txtJobFee.setText(feeStr);
+                } else {
+                    txtJobFee.setText("N/A");
                 }
-                txtJobFee.setText(feeStr);
+
+                String dtStr = job.getDateTime();
+                if (dtStr != null && !dtStr.trim().isEmpty() && !dtStr.equalsIgnoreCase("null")) {
+                    txtJobDateTime.setText(dtStr);
+                } else {
+                    txtJobDateTime.setText("N/A");
+                }
             } else {
-                txtJobFee.setText("$0.00");
+                txtJobFee.setText("N/A");
+                txtJobDateTime.setText("N/A");
             }
 
             txtJobLocation.setText(job.getLocation() != null && !job.getLocation().isEmpty() ? job.getLocation() : "No location specified");
-            txtJobDateTime.setText(job.getDateTime() != null && !job.getDateTime().isEmpty() ? job.getDateTime() : "N/A");
-            txtJobStatus.setText(job.getJobStatus() != null && !job.getJobStatus().isEmpty() ? job.getJobStatus() : "pending");
+            txtJobStatus.setText(status != null && !status.isEmpty() ? status : "pending");
 
             itemView.setOnClickListener(v -> {
                 if (listener != null) {

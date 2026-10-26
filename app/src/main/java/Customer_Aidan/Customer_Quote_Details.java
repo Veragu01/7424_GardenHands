@@ -208,36 +208,51 @@ public class Customer_Quote_Details extends AppCompatActivity {
         btnPickQuote.setEnabled(false);
 
         Map<String, Object> quoteUpdates = new HashMap<>();
+        quoteUpdates.put("status", "Accepted");
 
         db.collection("quotes").document(quoteId)
                 .update(quoteUpdates)
                 .addOnSuccessListener(aVoid -> {
                     // Update job if jobId is available
-                    if (jobId != null && !jobId.isEmpty()) {
+                    if (jobId != null && !jobId.trim().isEmpty()) {
                         Map<String, Object> jobUpdates = new HashMap<>();
                         jobUpdates.put("job_status", "in_progress");
-                        if (gardenerId != null) {
-                            jobUpdates.put("fee", fee);
-                            String timeValue = (date != null && session != null) ? (date + " (" + session + ")") : (timeslot != null ? timeslot : "");
-                            jobUpdates.put("date_time", date);
+                        if (gardenerId != null && !gardenerId.trim().isEmpty()) {
                             jobUpdates.put("gardener", gardenerId);
                         }
                         if (fee != null) {
                             jobUpdates.put("fee", fee);
                         }
-                        db.collection("jobs").document(jobId).update(jobUpdates);
-                    }
+                        String timeValue = "";
+                        if (date != null && !date.trim().isEmpty() && !"N/A".equalsIgnoreCase(date)) {
+                            timeValue = date;
+                            if (session != null && !session.trim().isEmpty() && !"N/A".equalsIgnoreCase(session)) {
+                                timeValue += " (" + session + ")";
+                            }
+                        } else if (timeslot != null && !timeslot.trim().isEmpty() && !"N/A".equalsIgnoreCase(timeslot)) {
+                            timeValue = timeslot;
+                        }
+                        if (!timeValue.isEmpty()) {
+                            jobUpdates.put("date_time", timeValue);
+                        }
 
-                    Toast.makeText(Customer_Quote_Details.this, "Quote picked successfully!", Toast.LENGTH_SHORT).show();
-                    btnPickQuote.setText("Quote Accepted");
-                    btnPickQuote.setAlpha(0.6f);
+                        db.collection("jobs").document(jobId).update(jobUpdates)
+                                .addOnCompleteListener(task -> {
+                                    Toast.makeText(Customer_Quote_Details.this, "Quote picked successfully!", Toast.LENGTH_SHORT).show();
+                                    Intent intent = new Intent(Customer_Quote_Details.this, Customer_Dashboard.class);
+                                    startActivity(intent);
+                                    finish();
+                                });
+                    } else {
+                        Toast.makeText(Customer_Quote_Details.this, "Quote picked successfully!", Toast.LENGTH_SHORT).show();
+                        Intent intent = new Intent(Customer_Quote_Details.this, Customer_Dashboard.class);
+                        startActivity(intent);
+                        finish();
+                    }
                 })
                 .addOnFailureListener(e -> {
                     btnPickQuote.setEnabled(true);
                     Toast.makeText(Customer_Quote_Details.this, "Failed to pick quote: " + e.getMessage(), Toast.LENGTH_SHORT).show();
                 });
-        Intent intent = new Intent(Customer_Quote_Details.this, Customer_Dashboard.class);
-        startActivity(intent);
-        finish();
     }
 }

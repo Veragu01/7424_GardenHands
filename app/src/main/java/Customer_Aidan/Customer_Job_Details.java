@@ -138,7 +138,7 @@ public class Customer_Job_Details extends AppCompatActivity {
         if (jobId != null && !jobId.isEmpty()) {
             if (txtJobTitle.getText().toString().isEmpty() || jobStatus == null) {
                 fetchJobFromFirestore(jobId);
-            } else {
+            } else if (isQuotePicked()) {
                 fetchQuoteDetailsForJob(jobId);
             }
         }
@@ -160,10 +160,14 @@ public class Customer_Job_Details extends AppCompatActivity {
     }
 
     private boolean isQuotePicked() {
-        if (jobStatus != null && !jobStatus.trim().isEmpty() && !jobStatus.equalsIgnoreCase("pending")) {
-            return true;
+        if (jobStatus == null || jobStatus.trim().isEmpty()) {
+            return false;
         }
-        return jobFee != null && !jobFee.trim().isEmpty();
+        String s = jobStatus.trim();
+        if (s.equalsIgnoreCase("pending") || s.equalsIgnoreCase("verified")) {
+            return false;
+        }
+        return true;
     }
 
     private void updateUIState() {
@@ -232,17 +236,25 @@ public class Customer_Job_Details extends AppCompatActivity {
         if (job.getJobStatus() != null) {
             jobStatus = job.getJobStatus();
         }
-        if (job.getFee() != null) {
+        boolean quotePicked = isQuotePicked();
+        if (job.getFee() != null && quotePicked) {
             jobFee = job.getFee();
             String f = jobFee.startsWith("$") ? jobFee : "$" + jobFee;
             txtJobFee.setText(f);
+        } else {
+            jobFee = null;
+            txtJobFee.setText("");
         }
         if (job.getJobTitle() != null) txtJobTitle.setText(job.getJobTitle());
         if (job.getJobDescription() != null) txtJobDescription.setText(job.getJobDescription());
         if (job.getJobType() != null) setJobTypeSelection(job.getJobType());
         if (job.getLocation() != null) txtJobLocation.setText(job.getLocation());
         if (job.getSize() != null) txtJobSize.setText(job.getSize());
-        if (job.getDateTime() != null) txtJobDateTime.setText(job.getDateTime());
+        if (job.getDateTime() != null && quotePicked) {
+            txtJobDateTime.setText(job.getDateTime());
+        } else {
+            txtJobDateTime.setText("");
+        }
 
         updateUIState();
     }
@@ -256,7 +268,9 @@ public class Customer_Job_Details extends AppCompatActivity {
                         if (doc.exists()) {
                             jobObject = Job.fromDocument(doc);
                             populateFieldsFromJob(jobObject);
-                            fetchQuoteDetailsForJob(id);
+                            if (isQuotePicked()) {
+                                fetchQuoteDetailsForJob(id);
+                            }
                         }
                     }
                 });
@@ -264,6 +278,7 @@ public class Customer_Job_Details extends AppCompatActivity {
 
     private void fetchQuoteDetailsForJob(String targetJobId) {
         if (targetJobId == null || targetJobId.trim().isEmpty()) return;
+        if (!isQuotePicked()) return;
 
         db.collection("quotes")
                 .get()
@@ -272,14 +287,18 @@ public class Customer_Job_Details extends AppCompatActivity {
                         for (QueryDocumentSnapshot doc : task.getResult()) {
                             Quote quote = Quote.fromDocument(doc);
                             if (isQuoteForJob(targetJobId, quote, doc)) {
-                                if (quote.getFee() != null && !quote.getFee().isEmpty()) {
-                                    jobFee = quote.getFee();
-                                    String f = jobFee.startsWith("$") ? jobFee : "$" + jobFee;
-                                    txtJobFee.setText(f);
+                                String qStatus = quote.getStatus();
+                                boolean isAccepted = qStatus != null && qStatus.trim().equalsIgnoreCase("accepted");
+                                if (isAccepted) {
+                                    if (quote.getFee() != null && !quote.getFee().isEmpty()) {
+                                        jobFee = quote.getFee();
+                                        String f = jobFee.startsWith("$") ? jobFee : "$" + jobFee;
+                                        txtJobFee.setText(f);
+                                    }
+                                    fetchTimeslotAndSetDateTime(quote);
+                                    updateUIState();
+                                    break;
                                 }
-                                fetchTimeslotAndSetDateTime(quote);
-                                updateUIState();
-                                break;
                             }
                         }
                     }
